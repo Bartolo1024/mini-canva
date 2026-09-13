@@ -1,0 +1,43 @@
+task: event
+description: Perfectly coincident centers hide severe overlap.
+seed: 0
+actions:
+- op: add_element
+  element:
+    role: headline
+    type: text
+    x: 200
+    y: 100
+    width: 400
+    height: 80
+    z_index: 2
+    content: Community Day
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: date
+    type: text
+    x: 200
+    y: 100
+    width: 400
+    height: 80
+    z_index: 2
+    content: September 20
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: cta
+    type: shape
+    x: 200
+    y: 100
+    width: 400
+    height: 80
+    z_index: 2
+    content: Join us
+    color: '#FFD700'
+    text_color: '#111111'
+    font_size: 24
+    subtype: button
+- op: finish

@@ -1,0 +1,32 @@
+# Default scoring task; action trajectories live in data/trajectories/default_task.
+prompt: Create a Summer Sale email banner with a headline, a yellow CTA button, and
+  good contrast.
+constraints: # TODO remove it and parse the prompt with some deterministic parser
+- id: headline_exists
+  kind: exists
+  hard: true
+  selector:
+    role: headline
+    type: text
+- id: headline_content
+  kind: text_contains
+  selector:
+    role: headline
+  value: Summer Sale
+- id: cta_exists
+  kind: exists
+  hard: true
+  selector:
+    role: cta
+    type: shape
+- id: cta_yellow
+  kind: color_family
+  selector:
+    role: cta
+  value: yellow
+- id: good_contrast
+  kind: contrast_min
+  selectors:
+  - role: headline
+  - role: cta
+  value: 4.5

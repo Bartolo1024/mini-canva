@@ -1,0 +1,65 @@
+prompt: Create a two-column banner with an image occupying the left half and headline,
+  subtitle, and CTA stacked on the right.
+constraints: # TODO remove it and parse the prompt with some deterministic parser
+- id: exists_1
+  kind: exists
+  hard: true
+  selector:
+    role: product
+    type: image
+  min_visible_ratio: 0.8
+- id: region_2
+  kind: region
+  selector:
+    role: product
+  value: left
+- id: exists_3
+  kind: exists
+  hard: true
+  selector:
+    role: headline
+    type: text
+  min_visible_ratio: 0.8
+- id: region_4
+  kind: region
+  selector:
+    role: headline
+  value: right
+- id: exists_5
+  kind: exists
+  hard: true
+  selector:
+    role: subtitle
+    type: text
+  min_visible_ratio: 0.8
+- id: region_6
+  kind: region
+  selector:
+    role: subtitle
+  value: right
+- id: exists_7
+  kind: exists
+  hard: true
+  selector:
+    role: cta
+    type: shape
+  min_visible_ratio: 0.8
+- id: region_8
+  kind: region
+  selector:
+    role: cta
+  value: right
+- id: relative_position_9
+  kind: relative_position
+  subject:
+    role: headline
+  object:
+    role: subtitle
+  relation: above
+- id: relative_position_10
+  kind: relative_position
+  subject:
+    role: subtitle
+  object:
+    role: cta
+  relation: above

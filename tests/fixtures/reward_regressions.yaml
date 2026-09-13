@@ -1,0 +1,7364 @@
+# Archival raw-state regression matrix; not replayable user trajectories.
+benchmarks:
+  summer_sale:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  webinar:
+    task:
+      prompt: Create a webinar banner with "AI Agents Summit" centered near the top,
+        a speaker image on the left, and a "Register Now" button near the bottom.
+      constraints:
+      - id: exists_1
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: text_equals_2
+        kind: text_equals
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: AI Agents Summit
+      - id: region_3
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: top
+      - id: alignment_4
+        kind: alignment
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        selectors: []
+        value: horizontal_centers
+        reference: canvas
+      - id: exists_5
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: speaker
+          type: image
+        min_visible_ratio: 0.8
+      - id: region_6
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: speaker
+          type: null
+        value: left
+      - id: exists_7
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: text_contains_8
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: Register Now
+      - id: region_9
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: bottom
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 150
+        y: 50
+        width: 500
+        height: 80
+        z_index: 2
+        content: AI Agents Summit
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: speaker
+        role: speaker
+        type: image
+        x: 40
+        y: 200
+        width: 250
+        height: 220
+        z_index: 2
+        content: ''
+        color: '#AAAAAA'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 270
+        y: 480
+        width: 260
+        height: 70
+        z_index: 2
+        content: Register Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  product_promotion:
+    task:
+      prompt: Create a product promotion with an image on the right, a large headline
+        on the left, and a CTA underneath the headline.
+      constraints:
+      - id: exists_1
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: product
+          type: image
+        min_visible_ratio: 0.8
+      - id: region_2
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: product
+          type: null
+        value: right
+      - id: exists_3
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: region_4
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: left
+      - id: exists_5
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: relative_position_6
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: cta
+          type: null
+        object:
+          id: null
+          role: headline
+          type: null
+        relation: below
+      - id: size_relation_7
+        kind: size_relation
+        hard: false
+        subject:
+          id: null
+          role: headline
+          type: null
+        object:
+          id: null
+          role: cta
+          type: null
+        operator: gt
+        metric: area
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: product
+        role: product
+        type: image
+        x: 500
+        y: 100
+        width: 250
+        height: 350
+        z_index: 2
+        content: ''
+        color: '#AAAAAA'
+        text_color: '#111111'
+        font_size: 24
+      - id: headline
+        role: headline
+        type: text
+        x: 30
+        y: 100
+        width: 360
+        height: 140
+        z_index: 2
+        content: Meet the future
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 80
+        y: 320
+        width: 220
+        height: 70
+        z_index: 2
+        content: Discover
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  newsletter:
+    task:
+      prompt: Create a minimal newsletter header containing "Weekly Product Update"
+        and a small logo in the upper-left corner. Do not include a CTA.
+      constraints:
+      - id: exists_1
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: text_equals_2
+        kind: text_equals
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Weekly Product Update
+      - id: exists_3
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: logo
+          type: image
+        min_visible_ratio: 0.8
+      - id: region_4
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: logo
+          type: null
+        value: top-left
+      - id: absent_5
+        kind: absent
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: null
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: logo
+        role: logo
+        type: image
+        x: 25
+        y: 25
+        width: 60
+        height: 60
+        z_index: 2
+        content: ''
+        color: '#333333'
+        text_color: '#111111'
+        font_size: 24
+      - id: headline
+        role: headline
+        type: text
+        x: 160
+        y: 100
+        width: 550
+        height: 80
+        z_index: 2
+        content: Weekly Product Update
+        color: null
+        text_color: '#111111'
+        font_size: 24
+  event:
+    task:
+      prompt: Create a centered event announcement with a headline, date, and CTA
+        arranged vertically with no overlapping text.
+      constraints:
+      - id: exists_1
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: exists_2
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: date
+          type: text
+        min_visible_ratio: 0.8
+      - id: exists_3
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: alignment_4
+        kind: alignment
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: date
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: horizontal_centers
+        reference: null
+      - id: alignment_5
+        kind: alignment
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        selectors: []
+        value: horizontal_centers
+        reference: canvas
+      - id: relative_position_6
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: headline
+          type: null
+        object:
+          id: null
+          role: date
+          type: null
+        relation: above
+      - id: relative_position_7
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: date
+          type: null
+        object:
+          id: null
+          role: cta
+          type: null
+        relation: above
+      - id: no_overlap_8
+        kind: no_overlap
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: date
+          type: null
+        - id: null
+          role: cta
+          type: null
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 150
+        y: 70
+        width: 500
+        height: 80
+        z_index: 2
+        content: Community Day
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: date
+        role: date
+        type: text
+        x: 220
+        y: 230
+        width: 360
+        height: 70
+        z_index: 2
+        content: September 20
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 280
+        y: 410
+        width: 240
+        height: 70
+        z_index: 2
+        content: Join us
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  two_column:
+    task:
+      prompt: Create a two-column banner with an image occupying the left half and
+        headline, subtitle, and CTA stacked on the right.
+      constraints:
+      - id: exists_1
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: product
+          type: image
+        min_visible_ratio: 0.8
+      - id: region_2
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: product
+          type: null
+        value: left
+      - id: exists_3
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: region_4
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: right
+      - id: exists_5
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: subtitle
+          type: text
+        min_visible_ratio: 0.8
+      - id: region_6
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: subtitle
+          type: null
+        value: right
+      - id: exists_7
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: region_8
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: right
+      - id: relative_position_9
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: headline
+          type: null
+        object:
+          id: null
+          role: subtitle
+          type: null
+        relation: above
+      - id: relative_position_10
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: subtitle
+          type: null
+        object:
+          id: null
+          role: cta
+          type: null
+        relation: above
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: product
+        role: product
+        type: image
+        x: 0
+        y: 0
+        width: 400
+        height: 600
+        z_index: 2
+        content: ''
+        color: '#AAAAAA'
+        text_color: '#111111'
+        font_size: 24
+      - id: headline
+        role: headline
+        type: text
+        x: 430
+        y: 80
+        width: 340
+        height: 90
+        z_index: 2
+        content: Better together
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: subtitle
+        role: subtitle
+        type: text
+        x: 430
+        y: 240
+        width: 340
+        height: 70
+        z_index: 2
+        content: Built for your team
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 480
+        y: 420
+        width: 240
+        height: 70
+        z_index: 2
+        content: Learn more
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+review:
+  perfect summer sale:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  wrong CTA color:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#4477FF'
+        text_color: '#111111'
+        font_size: 24
+  missing CTA:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+  bad contrast:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#FFFFFF'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#FFD700'
+        font_size: 24
+  headline offscreen:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: -10000
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  severe overlap:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  duplicate CTA spam:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_00
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_01
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_02
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_03
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_04
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_05
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_06
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_07
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_08
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_09
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_10
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_11
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_12
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_13
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_14
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_15
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_16
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_17
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_18
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: duplicate_19
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+adversarial:
+  valid_summer:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  wrong_cta_color:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#4477FF'
+        text_color: '#111111'
+        font_size: 24
+  bad_contrast:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#FFFFFF'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#FFD700'
+        font_size: 24
+  valid_required:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+      - id: image_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: image
+          type: image
+        min_visible_ratio: 0.8
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: image
+        role: image
+        type: image
+        x: 40
+        y: 350
+        width: 200
+        height: 180
+        z_index: 2
+        content: ''
+        color: '#AAAAAA'
+        text_color: '#111111'
+        font_size: 24
+  tiny_required:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+      - id: image_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: image
+          type: image
+        min_visible_ratio: 0.8
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 1
+        height: 1
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: image
+        role: image
+        type: image
+        x: 40
+        y: 350
+        width: 1
+        height: 1
+        z_index: 2
+        content: ''
+        color: '#AAAAAA'
+        text_color: '#111111'
+        font_size: 24
+  tiny_roles:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: tiny_00_0
+        role: headline
+        type: text
+        x: 20
+        y: 20
+        width: 1
+        height: 1
+        z_index: 2
+        content: Summer Sale
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_00_1
+        role: headline
+        type: text
+        x: 20
+        y: 50
+        width: 1
+        height: 1
+        z_index: 2
+        content: Summer Sale
+        color: '#FF0000'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_00_2
+        role: headline
+        type: text
+        x: 20
+        y: 80
+        width: 1
+        height: 1
+        z_index: 2
+        content: Summer Sale
+        color: '#00FF00'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_01_0
+        role: subtitle
+        type: text
+        x: 50
+        y: 20
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_01_1
+        role: subtitle
+        type: text
+        x: 50
+        y: 50
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#FF0000'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_01_2
+        role: subtitle
+        type: text
+        x: 50
+        y: 80
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#00FF00'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_02_0
+        role: cta
+        type: shape
+        x: 80
+        y: 20
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_02_1
+        role: cta
+        type: shape
+        x: 80
+        y: 50
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#FF0000'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_02_2
+        role: cta
+        type: shape
+        x: 80
+        y: 80
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#00FF00'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_03_0
+        role: image
+        type: image
+        x: 110
+        y: 20
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_03_1
+        role: image
+        type: image
+        x: 110
+        y: 50
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#FF0000'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_03_2
+        role: image
+        type: image
+        x: 110
+        y: 80
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#00FF00'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_04_0
+        role: logo
+        type: image
+        x: 140
+        y: 20
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_04_1
+        role: logo
+        type: image
+        x: 140
+        y: 50
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#FF0000'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_04_2
+        role: logo
+        type: image
+        x: 140
+        y: 80
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#00FF00'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_05_0
+        role: date
+        type: text
+        x: 170
+        y: 20
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_05_1
+        role: date
+        type: text
+        x: 170
+        y: 50
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#FF0000'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_05_2
+        role: date
+        type: text
+        x: 170
+        y: 80
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#00FF00'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_06_0
+        role: price
+        type: text
+        x: 200
+        y: 20
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_06_1
+        role: price
+        type: text
+        x: 200
+        y: 50
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#FF0000'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_06_2
+        role: price
+        type: text
+        x: 200
+        y: 80
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#00FF00'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_07_0
+        role: body
+        type: text
+        x: 230
+        y: 20
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_07_1
+        role: body
+        type: text
+        x: 230
+        y: 50
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#FF0000'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_07_2
+        role: body
+        type: text
+        x: 230
+        y: 80
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#00FF00'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_08_0
+        role: badge
+        type: text
+        x: 260
+        y: 20
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_08_1
+        role: badge
+        type: text
+        x: 260
+        y: 50
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#FF0000'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_08_2
+        role: badge
+        type: text
+        x: 260
+        y: 80
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#00FF00'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_09_0
+        role: button
+        type: text
+        x: 290
+        y: 20
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_09_1
+        role: button
+        type: text
+        x: 290
+        y: 50
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#FF0000'
+        text_color: '#111111'
+        font_size: 24
+      - id: tiny_09_2
+        role: button
+        type: text
+        x: 290
+        y: 80
+        width: 1
+        height: 1
+        z_index: 2
+        content: Shop Now
+        color: '#00FF00'
+        text_color: '#111111'
+        font_size: 24
+  readable_role_spam:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: spam_00
+        role: headline
+        type: text
+        x: 10
+        y: 350
+        width: 145
+        height: 40
+        z_index: 2
+        content: Headline
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 18
+      - id: spam_01
+        role: subtitle
+        type: text
+        x: 168
+        y: 350
+        width: 145
+        height: 40
+        z_index: 2
+        content: Subtitle
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 18
+      - id: spam_02
+        role: cta
+        type: shape
+        x: 326
+        y: 350
+        width: 145
+        height: 40
+        z_index: 2
+        content: Cta
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 18
+      - id: spam_03
+        role: image
+        type: image
+        x: 484
+        y: 350
+        width: 145
+        height: 40
+        z_index: 2
+        content: Image
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 18
+      - id: spam_04
+        role: logo
+        type: image
+        x: 642
+        y: 350
+        width: 145
+        height: 40
+        z_index: 2
+        content: Logo
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 18
+      - id: spam_05
+        role: date
+        type: text
+        x: 10
+        y: 430
+        width: 145
+        height: 40
+        z_index: 2
+        content: Date
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 18
+      - id: spam_06
+        role: price
+        type: text
+        x: 168
+        y: 430
+        width: 145
+        height: 40
+        z_index: 2
+        content: Price
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 18
+      - id: spam_07
+        role: body
+        type: text
+        x: 326
+        y: 430
+        width: 145
+        height: 40
+        z_index: 2
+        content: Body
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 18
+      - id: spam_08
+        role: badge
+        type: text
+        x: 484
+        y: 430
+        width: 145
+        height: 40
+        z_index: 2
+        content: Badge
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 18
+      - id: spam_09
+        role: button
+        type: text
+        x: 642
+        y: 430
+        width: 145
+        height: 40
+        z_index: 2
+        content: Button
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 18
+  single_cta_count:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+      - id: one_cta
+        kind: count
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: 1
+        operator: eq
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  twenty_ctas:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_00
+        role: cta
+        type: shape
+        x: 20
+        y: 200
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_01
+        role: cta
+        type: shape
+        x: 215
+        y: 200
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_02
+        role: cta
+        type: shape
+        x: 410
+        y: 200
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_03
+        role: cta
+        type: shape
+        x: 605
+        y: 200
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_04
+        role: cta
+        type: shape
+        x: 20
+        y: 270
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_05
+        role: cta
+        type: shape
+        x: 215
+        y: 270
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_06
+        role: cta
+        type: shape
+        x: 410
+        y: 270
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_07
+        role: cta
+        type: shape
+        x: 605
+        y: 270
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_08
+        role: cta
+        type: shape
+        x: 20
+        y: 340
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_09
+        role: cta
+        type: shape
+        x: 215
+        y: 340
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_10
+        role: cta
+        type: shape
+        x: 410
+        y: 340
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_11
+        role: cta
+        type: shape
+        x: 605
+        y: 340
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_12
+        role: cta
+        type: shape
+        x: 20
+        y: 410
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_13
+        role: cta
+        type: shape
+        x: 215
+        y: 410
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_14
+        role: cta
+        type: shape
+        x: 410
+        y: 410
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_15
+        role: cta
+        type: shape
+        x: 605
+        y: 410
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_16
+        role: cta
+        type: shape
+        x: 20
+        y: 480
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_17
+        role: cta
+        type: shape
+        x: 215
+        y: 480
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_18
+        role: cta
+        type: shape
+        x: 410
+        y: 480
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_19
+        role: cta
+        type: shape
+        x: 605
+        y: 480
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  twenty_ctas_count:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+      - id: one_cta
+        kind: count
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: 1
+        operator: eq
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_00
+        role: cta
+        type: shape
+        x: 20
+        y: 200
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_01
+        role: cta
+        type: shape
+        x: 215
+        y: 200
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_02
+        role: cta
+        type: shape
+        x: 410
+        y: 200
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_03
+        role: cta
+        type: shape
+        x: 605
+        y: 200
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_04
+        role: cta
+        type: shape
+        x: 20
+        y: 270
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_05
+        role: cta
+        type: shape
+        x: 215
+        y: 270
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_06
+        role: cta
+        type: shape
+        x: 410
+        y: 270
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_07
+        role: cta
+        type: shape
+        x: 605
+        y: 270
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_08
+        role: cta
+        type: shape
+        x: 20
+        y: 340
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_09
+        role: cta
+        type: shape
+        x: 215
+        y: 340
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_10
+        role: cta
+        type: shape
+        x: 410
+        y: 340
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_11
+        role: cta
+        type: shape
+        x: 605
+        y: 340
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_12
+        role: cta
+        type: shape
+        x: 20
+        y: 410
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_13
+        role: cta
+        type: shape
+        x: 215
+        y: 410
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_14
+        role: cta
+        type: shape
+        x: 410
+        y: 410
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_15
+        role: cta
+        type: shape
+        x: 605
+        y: 410
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_16
+        role: cta
+        type: shape
+        x: 20
+        y: 480
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_17
+        role: cta
+        type: shape
+        x: 215
+        y: 480
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_18
+        role: cta
+        type: shape
+        x: 410
+        y: 480
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_19
+        role: cta
+        type: shape
+        x: 605
+        y: 480
+        width: 160
+        height: 50
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  color_hedge:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta_0
+        role: cta
+        type: shape
+        x: 10
+        y: 230
+        width: 145
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#000000'
+        font_size: 18
+      - id: cta_1
+        role: cta
+        type: shape
+        x: 168
+        y: 230
+        width: 145
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FF0000'
+        text_color: '#000000'
+        font_size: 18
+      - id: cta_2
+        role: cta
+        type: shape
+        x: 326
+        y: 230
+        width: 145
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#00FF00'
+        text_color: '#000000'
+        font_size: 18
+      - id: cta_3
+        role: cta
+        type: shape
+        x: 484
+        y: 230
+        width: 145
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#0000FF'
+        text_color: '#FFFFFF'
+        font_size: 18
+      - id: cta_4
+        role: cta
+        type: shape
+        x: 642
+        y: 230
+        width: 145
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#800080'
+        text_color: '#FFFFFF'
+        font_size: 18
+  offscreen:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: -10000
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  mostly_offscreen:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: -380
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  giant_cta:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 0
+        y: 0
+        width: 800
+        height: 600
+        z_index: 3
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  valid_event:
+    task:
+      prompt: Create a centered event announcement with a headline, date, and CTA
+        arranged vertically with no overlapping text.
+      constraints:
+      - id: exists_1
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: exists_2
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: date
+          type: text
+        min_visible_ratio: 0.8
+      - id: exists_3
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: alignment_4
+        kind: alignment
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: date
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: horizontal_centers
+        reference: null
+      - id: alignment_5
+        kind: alignment
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        selectors: []
+        value: horizontal_centers
+        reference: canvas
+      - id: relative_position_6
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: headline
+          type: null
+        object:
+          id: null
+          role: date
+          type: null
+        relation: above
+      - id: relative_position_7
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: date
+          type: null
+        object:
+          id: null
+          role: cta
+          type: null
+        relation: above
+      - id: no_overlap_8
+        kind: no_overlap
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: date
+          type: null
+        - id: null
+          role: cta
+          type: null
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 150
+        y: 70
+        width: 500
+        height: 80
+        z_index: 2
+        content: Community Day
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: date
+        role: date
+        type: text
+        x: 220
+        y: 230
+        width: 360
+        height: 70
+        z_index: 2
+        content: September 20
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 280
+        y: 410
+        width: 240
+        height: 70
+        z_index: 2
+        content: Join us
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  center_stack:
+    task:
+      prompt: Create a centered event announcement with a headline, date, and CTA
+        arranged vertically with no overlapping text.
+      constraints:
+      - id: exists_1
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: exists_2
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: date
+          type: text
+        min_visible_ratio: 0.8
+      - id: exists_3
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: alignment_4
+        kind: alignment
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: date
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: horizontal_centers
+        reference: null
+      - id: alignment_5
+        kind: alignment
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        selectors: []
+        value: horizontal_centers
+        reference: canvas
+      - id: relative_position_6
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: headline
+          type: null
+        object:
+          id: null
+          role: date
+          type: null
+        relation: above
+      - id: relative_position_7
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: date
+          type: null
+        object:
+          id: null
+          role: cta
+          type: null
+        relation: above
+      - id: no_overlap_8
+        kind: no_overlap
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: date
+          type: null
+        - id: null
+          role: cta
+          type: null
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 100
+        width: 400
+        height: 80
+        z_index: 2
+        content: Community Day
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: date
+        role: date
+        type: text
+        x: 200
+        y: 100
+        width: 400
+        height: 80
+        z_index: 2
+        content: September 20
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 200
+        y: 100
+        width: 400
+        height: 80
+        z_index: 2
+        content: Join us
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  collision:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  collision_decoys:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_00
+        role: decoration
+        type: shape
+        x: 10
+        y: 350
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_01
+        role: decoration
+        type: shape
+        x: 88
+        y: 350
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_02
+        role: decoration
+        type: shape
+        x: 166
+        y: 350
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_03
+        role: decoration
+        type: shape
+        x: 244
+        y: 350
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_04
+        role: decoration
+        type: shape
+        x: 322
+        y: 350
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_05
+        role: decoration
+        type: shape
+        x: 400
+        y: 350
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_06
+        role: decoration
+        type: shape
+        x: 478
+        y: 350
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_07
+        role: decoration
+        type: shape
+        x: 556
+        y: 350
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_08
+        role: decoration
+        type: shape
+        x: 634
+        y: 350
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_09
+        role: decoration
+        type: shape
+        x: 712
+        y: 350
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_10
+        role: decoration
+        type: shape
+        x: 10
+        y: 420
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_11
+        role: decoration
+        type: shape
+        x: 88
+        y: 420
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_12
+        role: decoration
+        type: shape
+        x: 166
+        y: 420
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_13
+        role: decoration
+        type: shape
+        x: 244
+        y: 420
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_14
+        role: decoration
+        type: shape
+        x: 322
+        y: 420
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_15
+        role: decoration
+        type: shape
+        x: 400
+        y: 420
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_16
+        role: decoration
+        type: shape
+        x: 478
+        y: 420
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_17
+        role: decoration
+        type: shape
+        x: 556
+        y: 420
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_18
+        role: decoration
+        type: shape
+        x: 634
+        y: 420
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_19
+        role: decoration
+        type: shape
+        x: 712
+        y: 420
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_20
+        role: decoration
+        type: shape
+        x: 10
+        y: 490
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_21
+        role: decoration
+        type: shape
+        x: 88
+        y: 490
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_22
+        role: decoration
+        type: shape
+        x: 166
+        y: 490
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_23
+        role: decoration
+        type: shape
+        x: 244
+        y: 490
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_24
+        role: decoration
+        type: shape
+        x: 322
+        y: 490
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_25
+        role: decoration
+        type: shape
+        x: 400
+        y: 490
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_26
+        role: decoration
+        type: shape
+        x: 478
+        y: 490
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_27
+        role: decoration
+        type: shape
+        x: 556
+        y: 490
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_28
+        role: decoration
+        type: shape
+        x: 634
+        y: 490
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+      - id: decoy_29
+        role: decoration
+        type: shape
+        x: 712
+        y: 490
+        width: 30
+        height: 30
+        z_index: 2
+        content: ''
+        color: '#DDDDDD'
+        text_color: '#111111'
+        font_size: 24
+  missing_cta:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+  wrong_type:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: image
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  repeated_content:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 10
+        y: 80
+        width: 780
+        height: 80
+        z_index: 2
+        content: 'Summer Sale Summer Sale Summer Sale Summer Sale Summer Sale Summer
+          Sale Summer Sale Summer Sale '
+        color: null
+        text_color: '#111111'
+        font_size: 12
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  repeated_exact:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_equals
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 10
+        y: 80
+        width: 780
+        height: 80
+        z_index: 2
+        content: 'Summer Sale Summer Sale Summer Sale Summer Sale Summer Sale Summer
+          Sale Summer Sale Summer Sale '
+        color: null
+        text_color: '#111111'
+        font_size: 12
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  giant_backgrounds:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#FFFFFF'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: underlay_0
+        role: background
+        type: shape
+        x: 0
+        y: 0
+        width: 800
+        height: 600
+        z_index: 0
+        content: ''
+        color: '#000000'
+        text_color: '#111111'
+        font_size: 24
+      - id: underlay_1
+        role: background
+        type: shape
+        x: 0
+        y: 0
+        width: 800
+        height: 600
+        z_index: 1
+        content: ''
+        color: '#000000'
+        text_color: '#111111'
+        font_size: 24
+  giant_underlay:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: underlay_0
+        role: background
+        type: shape
+        x: 0
+        y: 0
+        width: 800
+        height: 600
+        z_index: 0
+        content: ''
+        color: '#FFFFFF'
+        text_color: '#111111'
+        font_size: 24
+  tiny_text:
+    task:
+      prompt: Required headline
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 100
+        y: 100
+        width: 1
+        height: 1
+        z_index: 2
+        content: Text
+        color: null
+        text_color: '#000000'
+        font_size: 24
+  hidden_headline:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: cover
+        role: background
+        type: shape
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 3
+        content: ''
+        color: '#FFFFFF'
+        text_color: '#111111'
+        font_size: 24
+  two_column:
+    task:
+      prompt: Create a two-column banner with an image occupying the left half and
+        headline, subtitle, and CTA stacked on the right.
+      constraints:
+      - id: exists_1
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: product
+          type: image
+        min_visible_ratio: 0.8
+      - id: region_2
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: product
+          type: null
+        value: left
+      - id: exists_3
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: region_4
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: right
+      - id: exists_5
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: subtitle
+          type: text
+        min_visible_ratio: 0.8
+      - id: region_6
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: subtitle
+          type: null
+        value: right
+      - id: exists_7
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: region_8
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: right
+      - id: relative_position_9
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: headline
+          type: null
+        object:
+          id: null
+          role: subtitle
+          type: null
+        relation: above
+      - id: relative_position_10
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: subtitle
+          type: null
+        object:
+          id: null
+          role: cta
+          type: null
+        relation: above
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: product
+        role: product
+        type: image
+        x: 0
+        y: 0
+        width: 400
+        height: 600
+        z_index: 2
+        content: ''
+        color: '#AAAAAA'
+        text_color: '#111111'
+        font_size: 24
+      - id: headline
+        role: headline
+        type: text
+        x: 430
+        y: 80
+        width: 340
+        height: 90
+        z_index: 2
+        content: Better together
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: subtitle
+        role: subtitle
+        type: text
+        x: 430
+        y: 240
+        width: 340
+        height: 70
+        z_index: 2
+        content: Built for your team
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 480
+        y: 420
+        width: 240
+        height: 70
+        z_index: 2
+        content: Learn more
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  centered_two_column:
+    task:
+      prompt: Create a two-column banner with an image occupying the left half and
+        headline, subtitle, and CTA stacked on the right.
+      constraints:
+      - id: exists_1
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: product
+          type: image
+        min_visible_ratio: 0.8
+      - id: region_2
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: product
+          type: null
+        value: left
+      - id: exists_3
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: region_4
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: right
+      - id: exists_5
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: subtitle
+          type: text
+        min_visible_ratio: 0.8
+      - id: region_6
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: subtitle
+          type: null
+        value: right
+      - id: exists_7
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: region_8
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: right
+      - id: relative_position_9
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: headline
+          type: null
+        object:
+          id: null
+          role: subtitle
+          type: null
+        relation: above
+      - id: relative_position_10
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: subtitle
+          type: null
+        object:
+          id: null
+          role: cta
+          type: null
+        relation: above
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: product
+        role: product
+        type: image
+        x: 200.0
+        y: 0
+        width: 400
+        height: 600
+        z_index: 2
+        content: ''
+        color: '#AAAAAA'
+        text_color: '#111111'
+        font_size: 24
+      - id: headline
+        role: headline
+        type: text
+        x: 230.0
+        y: 80
+        width: 340
+        height: 90
+        z_index: 2
+        content: Better together
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: subtitle
+        role: subtitle
+        type: text
+        x: 230.0
+        y: 240
+        width: 340
+        height: 70
+        z_index: 2
+        content: Built for your team
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 280.0
+        y: 420
+        width: 240
+        height: 70
+        z_index: 2
+        content: Learn more
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  newsletter:
+    task:
+      prompt: Create a minimal newsletter header containing "Weekly Product Update"
+        and a small logo in the upper-left corner. Do not include a CTA.
+      constraints:
+      - id: exists_1
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: text_equals_2
+        kind: text_equals
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Weekly Product Update
+      - id: exists_3
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: logo
+          type: image
+        min_visible_ratio: 0.8
+      - id: region_4
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: logo
+          type: null
+        value: top-left
+      - id: absent_5
+        kind: absent
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: null
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: logo
+        role: logo
+        type: image
+        x: 25
+        y: 25
+        width: 60
+        height: 60
+        z_index: 2
+        content: ''
+        color: '#333333'
+        text_color: '#111111'
+        font_size: 24
+      - id: headline
+        role: headline
+        type: text
+        x: 160
+        y: 100
+        width: 550
+        height: 80
+        z_index: 2
+        content: Weekly Product Update
+        color: null
+        text_color: '#111111'
+        font_size: 24
+  newsletter_cta:
+    task:
+      prompt: Create a minimal newsletter header containing "Weekly Product Update"
+        and a small logo in the upper-left corner. Do not include a CTA.
+      constraints:
+      - id: exists_1
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: text_equals_2
+        kind: text_equals
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Weekly Product Update
+      - id: exists_3
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: logo
+          type: image
+        min_visible_ratio: 0.8
+      - id: region_4
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: logo
+          type: null
+        value: top-left
+      - id: absent_5
+        kind: absent
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: null
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: logo
+        role: logo
+        type: image
+        x: 25
+        y: 25
+        width: 60
+        height: 60
+        z_index: 2
+        content: ''
+        color: '#333333'
+        text_color: '#111111'
+        font_size: 24
+      - id: headline
+        role: headline
+        type: text
+        x: 160
+        y: 100
+        width: 550
+        height: 80
+        z_index: 2
+        content: Weekly Product Update
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  tiny_image:
+    task:
+      prompt: Required image
+      constraints:
+      - id: image_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: image
+          type: image
+        min_visible_ratio: 0.8
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: image
+        role: image
+        type: image
+        x: 20
+        y: 20
+        width: 1
+        height: 1
+        z_index: 2
+        content: ''
+        color: '#AAAAAA'
+        text_color: '#111111'
+        font_size: 24
+  tiny_logo:
+    task:
+      prompt: Required logo
+      constraints:
+      - id: logo_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: logo
+          type: image
+        min_visible_ratio: 0.8
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: logo
+        role: logo
+        type: image
+        x: 20
+        y: 20
+        width: 1
+        height: 1
+        z_index: 2
+        content: ''
+        color: '#AAAAAA'
+        text_color: '#111111'
+        font_size: 24
+  ink_background:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: ink_underlay
+        role: background
+        type: shape
+        x: 204
+        y: 84
+        width: 144
+        height: 17
+        z_index: 1
+        content: ''
+        color: '#111111'
+        text_color: '#111111'
+        font_size: 24
+  background_decoration:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: underlay
+        role: decoration
+        type: shape
+        x: 180
+        y: 60
+        width: 440
+        height: 120
+        z_index: 1
+        content: ''
+        color: '#FFFFFF'
+        text_color: '#111111'
+        font_size: 24
+  background_exemption:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+      - id: underlay
+        role: background
+        type: shape
+        x: 180
+        y: 60
+        width: 440
+        height: 120
+        z_index: 1
+        content: ''
+        color: '#FFFFFF'
+        text_color: '#111111'
+        font_size: 24
+  negative_width:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: -1
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  zero_height:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 0
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  nan_coordinate:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: .nan
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  infinite_coordinate:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: .inf
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  invalid_hex:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#ZZZZZZ'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  missing_content:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  duplicate_ids:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: headline
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  alignment_200:
+    task:
+      prompt: Create a centered event announcement with a headline, date, and CTA
+        arranged vertically with no overlapping text.
+      constraints:
+      - id: exists_1
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: exists_2
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: date
+          type: text
+        min_visible_ratio: 0.8
+      - id: exists_3
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: alignment_4
+        kind: alignment
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: date
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: horizontal_centers
+        reference: null
+      - id: alignment_5
+        kind: alignment
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        selectors: []
+        value: horizontal_centers
+        reference: canvas
+      - id: relative_position_6
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: headline
+          type: null
+        object:
+          id: null
+          role: date
+          type: null
+        relation: above
+      - id: relative_position_7
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: date
+          type: null
+        object:
+          id: null
+          role: cta
+          type: null
+        relation: above
+      - id: no_overlap_8
+        kind: no_overlap
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: date
+          type: null
+        - id: null
+          role: cta
+          type: null
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 150
+        y: 70
+        width: 500
+        height: 80
+        z_index: 2
+        content: Community Day
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: date
+        role: date
+        type: text
+        x: 220
+        y: 230
+        width: 360
+        height: 70
+        z_index: 2
+        content: September 20
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 80
+        y: 410
+        width: 240
+        height: 70
+        z_index: 2
+        content: Join us
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  alignment_100:
+    task:
+      prompt: Create a centered event announcement with a headline, date, and CTA
+        arranged vertically with no overlapping text.
+      constraints:
+      - id: exists_1
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: exists_2
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: date
+          type: text
+        min_visible_ratio: 0.8
+      - id: exists_3
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: alignment_4
+        kind: alignment
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: date
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: horizontal_centers
+        reference: null
+      - id: alignment_5
+        kind: alignment
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        selectors: []
+        value: horizontal_centers
+        reference: canvas
+      - id: relative_position_6
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: headline
+          type: null
+        object:
+          id: null
+          role: date
+          type: null
+        relation: above
+      - id: relative_position_7
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: date
+          type: null
+        object:
+          id: null
+          role: cta
+          type: null
+        relation: above
+      - id: no_overlap_8
+        kind: no_overlap
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: date
+          type: null
+        - id: null
+          role: cta
+          type: null
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 150
+        y: 70
+        width: 500
+        height: 80
+        z_index: 2
+        content: Community Day
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: date
+        role: date
+        type: text
+        x: 220
+        y: 230
+        width: 360
+        height: 70
+        z_index: 2
+        content: September 20
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 180
+        y: 410
+        width: 240
+        height: 70
+        z_index: 2
+        content: Join us
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  alignment_50:
+    task:
+      prompt: Create a centered event announcement with a headline, date, and CTA
+        arranged vertically with no overlapping text.
+      constraints:
+      - id: exists_1
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: exists_2
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: date
+          type: text
+        min_visible_ratio: 0.8
+      - id: exists_3
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: alignment_4
+        kind: alignment
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: date
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: horizontal_centers
+        reference: null
+      - id: alignment_5
+        kind: alignment
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        selectors: []
+        value: horizontal_centers
+        reference: canvas
+      - id: relative_position_6
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: headline
+          type: null
+        object:
+          id: null
+          role: date
+          type: null
+        relation: above
+      - id: relative_position_7
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: date
+          type: null
+        object:
+          id: null
+          role: cta
+          type: null
+        relation: above
+      - id: no_overlap_8
+        kind: no_overlap
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: date
+          type: null
+        - id: null
+          role: cta
+          type: null
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 150
+        y: 70
+        width: 500
+        height: 80
+        z_index: 2
+        content: Community Day
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: date
+        role: date
+        type: text
+        x: 220
+        y: 230
+        width: 360
+        height: 70
+        z_index: 2
+        content: September 20
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 230
+        y: 410
+        width: 240
+        height: 70
+        z_index: 2
+        content: Join us
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  alignment_0:
+    task:
+      prompt: Create a centered event announcement with a headline, date, and CTA
+        arranged vertically with no overlapping text.
+      constraints:
+      - id: exists_1
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: exists_2
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: date
+          type: text
+        min_visible_ratio: 0.8
+      - id: exists_3
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: alignment_4
+        kind: alignment
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: date
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: horizontal_centers
+        reference: null
+      - id: alignment_5
+        kind: alignment
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        selectors: []
+        value: horizontal_centers
+        reference: canvas
+      - id: relative_position_6
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: headline
+          type: null
+        object:
+          id: null
+          role: date
+          type: null
+        relation: above
+      - id: relative_position_7
+        kind: relative_position
+        hard: false
+        subject:
+          id: null
+          role: date
+          type: null
+        object:
+          id: null
+          role: cta
+          type: null
+        relation: above
+      - id: no_overlap_8
+        kind: no_overlap
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: date
+          type: null
+        - id: null
+          role: cta
+          type: null
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 150
+        y: 70
+        width: 500
+        height: 80
+        z_index: 2
+        content: Community Day
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: date
+        role: date
+        type: text
+        x: 220
+        y: 230
+        width: 360
+        height: 70
+        z_index: 2
+        content: September 20
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 280
+        y: 410
+        width: 240
+        height: 70
+        z_index: 2
+        content: Join us
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  contrast_0:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#AAAAAA'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  contrast_1:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#888888'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  contrast_2:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#666666'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  contrast_3:
+    task:
+      prompt: Create a Summer Sale email banner with a headline, a yellow CTA button,
+        and good contrast.
+      constraints:
+      - id: headline_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: headline_content
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Summer Sale
+      - id: cta_exists
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: cta_yellow
+        kind: color_family
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: yellow
+      - id: good_contrast
+        kind: contrast_min
+        hard: false
+        selector: null
+        selectors:
+        - id: null
+          role: headline
+          type: null
+        - id: null
+          role: cta
+          type: null
+        value: 4.5
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#000000'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  summer_as_webinar:
+    task:
+      prompt: Create a webinar banner with "AI Agents Summit" centered near the top,
+        a speaker image on the left, and a "Register Now" button near the bottom.
+      constraints:
+      - id: exists_1
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: text_equals_2
+        kind: text_equals
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: AI Agents Summit
+      - id: region_3
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: top
+      - id: alignment_4
+        kind: alignment
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        selectors: []
+        value: horizontal_centers
+        reference: canvas
+      - id: exists_5
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: speaker
+          type: image
+        min_visible_ratio: 0.8
+      - id: region_6
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: speaker
+          type: null
+        value: left
+      - id: exists_7
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: shape
+        min_visible_ratio: 0.8
+      - id: text_contains_8
+        kind: text_contains
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: Register Now
+      - id: region_9
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: cta
+          type: null
+        value: bottom
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24
+  summer_as_newsletter:
+    task:
+      prompt: Create a minimal newsletter header containing "Weekly Product Update"
+        and a small logo in the upper-left corner. Do not include a CTA.
+      constraints:
+      - id: exists_1
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: headline
+          type: text
+        min_visible_ratio: 0.8
+      - id: text_equals_2
+        kind: text_equals
+        hard: false
+        selector:
+          id: null
+          role: headline
+          type: null
+        value: Weekly Product Update
+      - id: exists_3
+        kind: exists
+        hard: true
+        selector:
+          id: null
+          role: logo
+          type: image
+        min_visible_ratio: 0.8
+      - id: region_4
+        kind: region
+        hard: false
+        selector:
+          id: null
+          role: logo
+          type: null
+        value: top-left
+      - id: absent_5
+        kind: absent
+        hard: true
+        selector:
+          id: null
+          role: cta
+          type: null
+    state:
+      canvas:
+        width: 800
+        height: 600
+        background_color: '#FFFFFF'
+      elements:
+      - id: headline
+        role: headline
+        type: text
+        x: 200
+        y: 80
+        width: 400
+        height: 80
+        z_index: 2
+        content: Summer Sale
+        color: null
+        text_color: '#111111'
+        font_size: 24
+      - id: cta
+        role: cta
+        type: shape
+        x: 300
+        y: 230
+        width: 200
+        height: 60
+        z_index: 2
+        content: Shop Now
+        color: '#FFD700'
+        text_color: '#111111'
+        font_size: 24

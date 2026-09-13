@@ -1,0 +1,44 @@
+task: newsletter
+description: Add a readable CTA despite the explicit absence requirement.
+seed: 0
+actions:
+- op: add_element
+  element:
+    role: logo
+    type: image
+    x: 25
+    y: 25
+    width: 60
+    height: 60
+    z_index: 2
+    content: ''
+    color: '#333333'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: headline
+    type: text
+    x: 160
+    y: 100
+    width: 550
+    height: 80
+    z_index: 2
+    content: Weekly Product Update
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: cta
+    type: shape
+    x: 300
+    y: 230
+    width: 200
+    height: 60
+    z_index: 2
+    content: Shop Now
+    color: '#FFD700'
+    text_color: '#111111'
+    font_size: 24
+    subtype: button
+- op: finish

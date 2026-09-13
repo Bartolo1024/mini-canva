@@ -1,0 +1,55 @@
+prompt: Create a webinar banner with "AI Agents Summit" centered near the top, a speaker
+  image on the left, and a "Register Now" button near the bottom.
+constraints: # TODO remove it and parse the prompt with some deterministic parser
+- id: exists_1
+  kind: exists
+  hard: true
+  selector:
+    role: headline
+    type: text
+  min_visible_ratio: 0.8
+- id: text_equals_2
+  kind: text_equals
+  selector:
+    role: headline
+  value: AI Agents Summit
+- id: region_3
+  kind: region
+  selector:
+    role: headline
+  value: top
+- id: alignment_4
+  kind: alignment
+  selector:
+    role: headline
+  value: horizontal_centers
+  reference: canvas
+- id: exists_5
+  kind: exists
+  hard: true
+  selector:
+    role: speaker
+    type: image
+  min_visible_ratio: 0.8
+- id: region_6
+  kind: region
+  selector:
+    role: speaker
+  value: left
+- id: exists_7
+  kind: exists
+  hard: true
+  selector:
+    role: cta
+    type: shape
+  min_visible_ratio: 0.8
+- id: text_contains_8
+  kind: text_contains
+  selector:
+    role: cta
+  value: Register Now
+- id: region_9
+  kind: region
+  selector:
+    role: cta
+  value: bottom

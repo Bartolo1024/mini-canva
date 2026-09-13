@@ -1,0 +1,398 @@
+task: default_task
+description: Thirty microscopic role/color variants try to satisfy presence.
+seed: 0
+actions:
+- op: add_element
+  element:
+    role: headline
+    type: text
+    x: 20
+    y: 20
+    width: 1
+    height: 1
+    z_index: 2
+    content: Summer Sale
+    color: '#FFD700'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: headline
+    type: text
+    x: 20
+    y: 50
+    width: 1
+    height: 1
+    z_index: 2
+    content: Summer Sale
+    color: '#FF0000'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: headline
+    type: text
+    x: 20
+    y: 80
+    width: 1
+    height: 1
+    z_index: 2
+    content: Summer Sale
+    color: '#00FF00'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: subtitle
+    type: text
+    x: 50
+    y: 20
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#FFD700'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: subtitle
+    type: text
+    x: 50
+    y: 50
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#FF0000'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: subtitle
+    type: text
+    x: 50
+    y: 80
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#00FF00'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: cta
+    type: shape
+    x: 80
+    y: 20
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#FFD700'
+    text_color: '#111111'
+    font_size: 24
+    subtype: button
+- op: add_element
+  element:
+    role: cta
+    type: shape
+    x: 80
+    y: 50
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#FF0000'
+    text_color: '#111111'
+    font_size: 24
+    subtype: button
+- op: add_element
+  element:
+    role: cta
+    type: shape
+    x: 80
+    y: 80
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#00FF00'
+    text_color: '#111111'
+    font_size: 24
+    subtype: button
+- op: add_element
+  element:
+    role: image
+    type: image
+    x: 110
+    y: 20
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#FFD700'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: image
+    type: image
+    x: 110
+    y: 50
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#FF0000'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: image
+    type: image
+    x: 110
+    y: 80
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#00FF00'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: logo
+    type: image
+    x: 140
+    y: 20
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#FFD700'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: logo
+    type: image
+    x: 140
+    y: 50
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#FF0000'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: logo
+    type: image
+    x: 140
+    y: 80
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#00FF00'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: date
+    type: text
+    x: 170
+    y: 20
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#FFD700'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: date
+    type: text
+    x: 170
+    y: 50
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#FF0000'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: date
+    type: text
+    x: 170
+    y: 80
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#00FF00'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: price
+    type: text
+    x: 200
+    y: 20
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#FFD700'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: price
+    type: text
+    x: 200
+    y: 50
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#FF0000'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: price
+    type: text
+    x: 200
+    y: 80
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#00FF00'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: body
+    type: text
+    x: 230
+    y: 20
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#FFD700'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: body
+    type: text
+    x: 230
+    y: 50
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#FF0000'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: body
+    type: text
+    x: 230
+    y: 80
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#00FF00'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: badge
+    type: text
+    x: 260
+    y: 20
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#FFD700'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: badge
+    type: text
+    x: 260
+    y: 50
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#FF0000'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: badge
+    type: text
+    x: 260
+    y: 80
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#00FF00'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: button
+    type: text
+    x: 290
+    y: 20
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#FFD700'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: button
+    type: text
+    x: 290
+    y: 50
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#FF0000'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: button
+    type: text
+    x: 290
+    y: 80
+    width: 1
+    height: 1
+    z_index: 2
+    content: Shop Now
+    color: '#00FF00'
+    text_color: '#111111'
+    font_size: 24
+- op: finish

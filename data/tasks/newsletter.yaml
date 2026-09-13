@@ -1,0 +1,32 @@
+prompt: Create a minimal newsletter header containing "Weekly Product Update" and
+  a small logo in the upper-left corner. Do not include a CTA.
+constraints: # TODO remove it and parse the prompt with some deterministic parser
+- id: exists_1
+  kind: exists
+  hard: true
+  selector:
+    role: headline
+    type: text
+  min_visible_ratio: 0.8
+- id: text_equals_2
+  kind: text_equals
+  selector:
+    role: headline
+  value: Weekly Product Update
+- id: exists_3
+  kind: exists
+  hard: true
+  selector:
+    role: logo
+    type: image
+  min_visible_ratio: 0.8
+- id: region_4
+  kind: region
+  selector:
+    role: logo
+  value: top-left
+- id: absent_5
+  kind: absent
+  hard: true
+  selector:
+    role: cta

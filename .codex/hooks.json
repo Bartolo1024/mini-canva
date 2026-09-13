@@ -1,0 +1,17 @@
+{
+  "description": "Load MarketCanvas project scope at session start or resume.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /home/bartolo/Projects/educational_projects/verita_take_home/scripts/codex_session_start.py",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+task: two_column
+description: Center the content despite explicit left/right layout requirements.
+seed: 0
+actions:
+- op: add_element
+  element:
+    role: product
+    type: image
+    x: 200
+    y: 0
+    width: 400
+    height: 600
+    z_index: 2
+    content: ''
+    color: '#AAAAAA'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: headline
+    type: text
+    x: 230
+    y: 80
+    width: 340
+    height: 90
+    z_index: 2
+    content: Better together
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: subtitle
+    type: text
+    x: 230
+    y: 240
+    width: 340
+    height: 70
+    z_index: 2
+    content: Built for your team
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: cta
+    type: shape
+    x: 280
+    y: 420
+    width: 240
+    height: 70
+    z_index: 2
+    content: Learn more
+    color: '#FFD700'
+    text_color: '#111111'
+    font_size: 24
+    subtype: button
+- op: finish

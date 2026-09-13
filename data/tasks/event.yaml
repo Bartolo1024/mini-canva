@@ -1,0 +1,57 @@
+prompt: Create a centered event announcement with a headline, date, and CTA arranged
+  vertically with no overlapping text.
+constraints: # TODO remove it and parse the prompt with some deterministic parser
+- id: exists_1
+  kind: exists
+  hard: true
+  selector:
+    role: headline
+    type: text
+  min_visible_ratio: 0.8
+- id: exists_2
+  kind: exists
+  hard: true
+  selector:
+    role: date
+    type: text
+  min_visible_ratio: 0.8
+- id: exists_3
+  kind: exists
+  hard: true
+  selector:
+    role: cta
+    type: shape
+  min_visible_ratio: 0.8
+- id: alignment_4
+  kind: alignment
+  selectors:
+  - role: headline
+  - role: date
+  - role: cta
+  value: horizontal_centers
+- id: alignment_5
+  kind: alignment
+  selector:
+    role: headline
+  value: horizontal_centers
+  reference: canvas
+- id: relative_position_6
+  kind: relative_position
+  subject:
+    role: headline
+  object:
+    role: date
+  relation: above
+- id: relative_position_7
+  kind: relative_position
+  subject:
+    role: date
+  object:
+    role: cta
+  relation: above
+- id: no_overlap_8
+  kind: no_overlap
+  selectors:
+  - role: headline
+  - role: date
+  - role: cta

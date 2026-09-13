@@ -1,0 +1,35 @@
+# Loaded once at process startup; restart Python after editing.
+# Defaults retain the version 1 episode behavior.
+max_elements: 32
+max_steps: 64
+max_content_length: 256
+max_role_length: 64
+max_task_json_length: 65536
+
+# Shared reward policy, loaded once at startup. These are global conventions,
+# not per-prompt importance weights. TaskSpec can explicitly request visibility
+# and contrast thresholds; omitted existence visibility uses this default.
+reward:
+  hard_failure_gate: 0.4
+  min_visible_ratio: 0.8
+  # Required-element area / canvas area; anti-degeneracy, overridable per exists rule.
+  min_area_ratio: 0.001
+  contrast_full_credit_ratio: 4.5
+  # Normalized canvas spans over which position credit decays to zero.
+  side_region_falloff_span: 0.6666666666666666
+  center_region_falloff_span: 0.4
+  alignment_falloff_span: 0.5
+  # Minimum font size controls usability; inset is shared with rendering.
+  min_readable_font_size: 12
+  text_inset: 4
+  max_geometry_magnitude: 1000000000.0
+  color_families:
+    neutral_saturation_below: 0.15
+    neutral_value_below: 0.10
+    # Degrees in HSV; red wraps around zero, from red_start to red_end.
+    hue_red_end: 15.0
+    hue_orange_end: 40.0
+    hue_yellow_end: 75.0
+    hue_green_end: 170.0
+    hue_blue_end: 260.0
+    hue_red_start: 345.0

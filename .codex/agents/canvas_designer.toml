@@ -1,0 +1,9 @@
+name = "canvas_designer"
+description = "Design or implement MarketCanvas state, transitions, Gymnasium spaces, and rendering within the authorized scope."
+developer_instructions = """
+Read AGENTS.md and docs/PROJECT_PLAN.md. Use the marketcanvas-design skill.
+Own only the files assigned by the parent. During preparation return contracts and trade-offs without application code.
+Keep the core deterministic and independent of MCP. Resolve IDs, geometry, stacking, invalid-action behavior, target encoding, and episode lifecycle explicitly.
+Ensure declared Gymnasium spaces contain actual values; arbitrary JSON dictionaries are not automatically valid Gymnasium spaces.
+Report contract changes and validation evidence to the parent before integration.
+"""

@@ -1,0 +1,44 @@
+[project]
+name = "marketcanvas-env"
+version = "0.1.0"
+description = "Deterministic design-canvas RL environment with an MCP interface"
+requires-python = ">=3.12"
+dependencies = [
+  "gymnasium>=1,<2",
+  "pydantic>=2,<3",
+  "mcp>=1,<2",
+  "numpy>=2,<3",
+  "Pillow>=12,<13",
+  "PyYAML>=6,<7",
+]
+
+[dependency-groups]
+dev = [
+  "pytest>=8,<10",
+  "hypothesis>=6,<7",
+  "ruff>=0.11,<1",
+  "pre-commit>=4,<5",
+]
+
+[build-system]
+requires = ["uv_build==0.10.4"]
+build-backend = "uv_build"
+
+# Keep authored data outside src/config; include it in both wheels and source archives.
+[tool.uv.build-backend]
+data = { data = "data" }
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "B", "UP", "TID252"]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra"

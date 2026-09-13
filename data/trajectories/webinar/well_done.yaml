@@ -1,0 +1,44 @@
+task: webinar
+description: A valid solution satisfying this task.
+seed: 0
+actions:
+- op: add_element
+  element:
+    role: headline
+    type: text
+    x: 150
+    y: 50
+    width: 500
+    height: 80
+    z_index: 2
+    content: AI Agents Summit
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: speaker
+    type: image
+    x: 40
+    y: 200
+    width: 250
+    height: 220
+    z_index: 2
+    content: ''
+    color: '#AAAAAA'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: cta
+    type: shape
+    x: 270
+    y: 480
+    width: 260
+    height: 70
+    z_index: 2
+    content: Register Now
+    color: '#FFD700'
+    text_color: '#111111'
+    font_size: 24
+    subtype: button
+- op: finish

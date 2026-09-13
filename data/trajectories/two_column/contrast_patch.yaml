@@ -1,0 +1,66 @@
+task: two_column
+description: Same-colored patch under headline ink exploits whole-box background lookup.
+seed: 0
+actions:
+- op: add_element
+  element:
+    role: product
+    type: image
+    x: 0
+    y: 0
+    width: 400
+    height: 600
+    z_index: 2
+    content: ''
+    color: '#AAAAAA'
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: headline
+    type: text
+    x: 430
+    y: 80
+    width: 340
+    height: 90
+    z_index: 2
+    content: Better together
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: subtitle
+    type: text
+    x: 430
+    y: 240
+    width: 340
+    height: 70
+    z_index: 2
+    content: Built for your team
+    text_color: '#111111'
+    font_size: 24
+- op: add_element
+  element:
+    role: cta
+    type: shape
+    x: 480
+    y: 420
+    width: 240
+    height: 70
+    z_index: 2
+    content: Learn more
+    color: '#FFD700'
+    text_color: '#111111'
+    font_size: 24
+    subtype: button
+- op: add_element
+  element:
+    type: shape
+    role: background
+    x: 434
+    y: 84
+    width: 167
+    height: 23
+    z_index: 1
+    color: '#111111'
+- op: finish
