@@ -43,9 +43,15 @@ T=\frac{1}{n}\sum_{i=1}^{n}s_i,
 \qquad Q=\frac{4}{B^{-1}+O^{-1}+C^{-1}+V^{-1}}
 $$
 
+The hard gate uses these values:
+
+| Condition | $G$ |
+| --- | --- |
+| All hard constraints score 1 | 1 |
+| Otherwise | 0.4 |
+
 $$
-G=\begin{cases}1,&\text{all hard constraints score }1\\0.4,&\text{otherwise}\end{cases}
-\qquad R=\min\left(1,\max\left(-1,G(T+Q)-1\right)\right)
+R=\min\left(1,\max\left(-1,G(T+Q)-1\right)\right)
 $$
 
 | Variable | Meaning |
