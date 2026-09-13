@@ -45,7 +45,7 @@ $$
 
 $$
 G=\begin{cases}1,&\text{all hard constraints score }1\\0.4,&\text{otherwise}\end{cases}
-\qquad R=\operatorname{clamp}\bigl(G(T+Q)-1,-1,1\bigr)
+\qquad R=\min\left(1,\max\left(-1,G(T+Q)-1\right)\right)
 $$
 
 | Variable | Meaning |
