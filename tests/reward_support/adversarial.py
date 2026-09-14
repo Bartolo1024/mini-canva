@@ -1,6 +1,6 @@
 """Measurements of the archival regression matrix; never changes runtime scoring.
 
-Run ``python -m examples.reward.adversarial [--json | --markdown]``.
+Run ``python -m tests.reward_support.adversarial [--json | --markdown]``.
 These are raw reward snapshots, not action traces. In particular, offscreen and
 malformed snapshots deliberately exercise inputs rejected by the canvas core.
 """
@@ -10,10 +10,10 @@ import json
 import math
 from typing import Any
 
-from examples.reward.regression_data import load_catalog
 from marketcanvas_env.reward import compute_reward_breakdown
 from marketcanvas_env.reward.scene import Scene
 from marketcanvas_env.reward.tasks import TaskSpec
+from tests.reward_support.regression_data import load_catalog
 
 Scenario = tuple[dict[str, Any], TaskSpec]
 

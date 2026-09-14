@@ -8,7 +8,6 @@ import pytest
 from hypothesis import given, settings
 from hypothesis import strategies as st
 
-from examples.reward.benchmarks import BENCHMARKS
 from marketcanvas_env import CanvasCore
 from marketcanvas_env.reward import compute_reward_breakdown
 from marketcanvas_env.reward.colors import (
@@ -20,6 +19,7 @@ from marketcanvas_env.reward.colors import (
 from marketcanvas_env.reward.geometry import Rect, intersection_area, union_area, visible_ratio
 from marketcanvas_env.reward.quality import harmonic_mean
 from marketcanvas_env.reward.scene import Scene
+from tests.reward_support.benchmarks import BENCHMARKS
 
 
 def test_wcag_reference_values():

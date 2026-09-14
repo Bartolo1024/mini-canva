@@ -88,7 +88,7 @@ def test_steps_do_not_render(monkeypatch):
 
 def test_example_cli_exports_public_trajectory_images_and_traces(tmp_path):
     subprocess.run(
-        [sys.executable, "-m", "examples.reward.render", "--all", "--output-dir", str(tmp_path)],
+        [sys.executable, "scripts/run_examples.py", "--output-dir", str(tmp_path)],
         check=True,
         capture_output=True,
         text=True,

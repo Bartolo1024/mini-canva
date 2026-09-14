@@ -50,20 +50,20 @@ Start with [the equations and code map](docs/REWARD_EQUATIONS.md), then
 [compute_reward_breakdown](src/marketcanvas_env/reward/evaluator.py).
 
 ```sh
-uv run --locked python -m examples.reward.review
-uv run --locked python -m examples.reward.render --all
-uv run --locked python -m examples.reward.assumptions
+uv run --locked python scripts/run_examples.py
+uv run --locked python scripts/run_examples.py --task two_column
+uv run --locked python scripts/run_examples.py --task webinar --trajectory missing_cta --output-dir artifacts/reward
 ```
 
-The first command replays all 15 trajectories and prints their reward components. The
-second exports PNG/JSON pairs under `artifacts/reward/<task_name>/<trajectory>`; JSON
-includes the action trace, final state, and reward explanations. The third reproduces
-additional historical reward loopholes from checkout-only regression fixtures.
+The same script can replay all 15 trajectories, one task, or one trajectory. It prints
+their reward components. Add `--output-dir artifacts/reward` to export PNG/JSON pairs
+under `<output-dir>/<task_name>/`; JSON includes the action trace, final state, and
+reward explanations. Tasks and actions come from `data/`, not from the script.
 
-For the broader 52-case snapshot regression review, run `uv run --locked python -m examples.reward.adversarial`.
-Use `--json` for full reports and inspection measurements or `--markdown` for the measured table.
-[reward-hacking analysis](docs/REWARD_HACKING.md) maps attacks to tests and explicitly records unmet
-safeguards. Strict expected failures expose known gaps.
+The [reward-hacking analysis](docs/REWARD_HACKING.md) maps attacks to tests and records
+unmet safeguards. Broader snapshot regressions and historical experiments live under
+`tests/reward_support/`; see [development checks](docs/DEVELOPMENT.md) and
+[reward experiments](docs/REWARD_EXPERIMENTS.md).
 
 Reward combines explicit task satisfaction and generic bounds, overlap, contrast, and
 validity. A score of 1 means the implemented checks pass; it does not establish professional
@@ -76,10 +76,12 @@ background contrast use rectangle approximations. Contrast is a soft rule in the
 uv run --locked ruff check .
 uv run --locked ruff format --check .
 uv run --locked pytest -q
-uv run --locked python -m examples.mcp_client --benchmark two_column
+uv run --locked python scripts/mcp_client.py --task two_column
 ```
 
-The example client starts a real MCP stdio subprocess and replays an authored trajectory.
+The MCP script starts a real stdio subprocess and replays an authored trajectory from `data/`.
+Add `--trajectory missing_cta` with `--task webinar` to select a representative attack;
+the default trajectory is `well_done`.
 For an LLM choosing its own actions, follow the [Codex connection and live-demo guide](docs/MCP.md).
 Each server process owns one canvas; stdout carries protocol messages. MCP currently exposes
 JSON state/reward and editing/reset tools. The [render_canvas tool](docs/MCP_RENDER_CANVAS.md)
@@ -92,4 +94,5 @@ Start reading with [WRITEUP.md](WRITEUP.md), then [core.py](src/marketcanvas_env
 [rendering](docs/RENDERING.md), and [tests](docs/DEVELOPMENT.md) provide details.
 The [documentation index](docs/INDEX.md) maps the current guides; [project status](docs/PROJECT_PLAN.md)
 separates implemented features from pending work.
-Example commands require the checkout; the installed runtime package is independent of examples.
+The two utilities in `scripts/` require the checkout; the installed runtime package
+does not depend on them. The required `demo.py` remains a separate fixed demonstration.

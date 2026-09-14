@@ -53,10 +53,17 @@ directory, both in a checkout and an installed wheel. Documents are cached for t
 lifetime; restart after editing YAML.
 
 ```sh
-uv run --locked python -m examples.reward.review
-uv run --locked python -m examples.reward.render --all
-uv run --locked python -m examples.mcp_client --benchmark webinar --trajectory missing_cta
+uv run --locked python scripts/run_examples.py
+uv run --locked python scripts/run_examples.py --task two_column
+uv run --locked python scripts/run_examples.py --task webinar --trajectory missing_cta --output-dir artifacts/reward
+uv run --locked python scripts/mcp_client.py --task webinar --trajectory missing_cta
 ```
+
+There are two runnable utilities in `scripts/`. `run_examples.py` replays all data by
+default and prints a reward table; `--task` and `--trajectory` narrow the selection.
+`--output-dir` also saves PNGs and JSON reports. `mcp_client.py` replays one trajectory
+through the real MCP server, defaulting to `well_done`. Both read the same YAML data;
+they do not define additional example tasks or action sequences.
 
 To add a task, author a new TaskSpec YAML with prompt metadata and supported constraints,
 then add a matching trajectory directory. Pass the loaded task directly to
@@ -71,3 +78,4 @@ parameter sweeps, and historical comparisons belong in tests. The broader 52-cas
 regressions and historical benchmark snapshots share one
 [`tests/fixtures/reward_regressions.yaml`](../tests/fixtures/reward_regressions.yaml), which
 is not installed as runtime data.
+Their helper code and historical reward experiments live in `tests/reward_support/`.

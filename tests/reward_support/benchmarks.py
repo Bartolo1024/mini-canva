@@ -8,8 +8,8 @@ before editing it; ``_element`` supports dynamically generated test cases.
 from dataclasses import dataclass
 from typing import Any
 
-from examples.reward.regression_data import load_catalog
 from marketcanvas_env.reward.tasks import TaskSpec
+from tests.reward_support.regression_data import load_catalog
 
 
 @dataclass(frozen=True)

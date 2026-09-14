@@ -9,10 +9,10 @@ from datetime import timedelta
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
-from examples.reward.benchmarks import BENCHMARKS
 from marketcanvas_env.env import MarketCanvasEnv
 from marketcanvas_env.models import NewElement
 from marketcanvas_env.task_data import load_task, tasks_directory
+from tests.reward_support.benchmarks import BENCHMARKS
 
 
 @asynccontextmanager

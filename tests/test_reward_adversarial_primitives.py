@@ -6,7 +6,6 @@ import numpy as np
 import pytest
 from pydantic import ValidationError
 
-from examples.reward.benchmarks import BENCHMARKS
 from marketcanvas_env.reward import compute_reward_breakdown
 from marketcanvas_env.reward.colors import contrast_ratio, relative_luminance
 from marketcanvas_env.reward.constraints import evaluate_constraint
@@ -14,6 +13,7 @@ from marketcanvas_env.reward.geometry import Rect, intersection_area, visible_ra
 from marketcanvas_env.reward.quality import collision_ratio
 from marketcanvas_env.reward.scene import Scene
 from marketcanvas_env.reward.tasks import Constraint, TaskSpec
+from tests.reward_support.benchmarks import BENCHMARKS
 
 
 def reference():

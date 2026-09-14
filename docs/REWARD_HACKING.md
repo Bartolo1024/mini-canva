@@ -62,7 +62,7 @@ classification concern rather than demonstrated illegibility.
 
 ### Measured public trajectories
 
-Recomputed with packaged settings using `python -m examples.reward.review`. Each task's
+Recomputed with packaged settings using `python scripts/run_examples.py`. Each task's
 `well_done` trajectory has T=Q=G=1 and R=+1.000. The ten attacks produce:
 
 | Task / trajectory | T | Q | G | R |
@@ -83,9 +83,9 @@ soft and therefore remains positive. Raw regression snapshots can produce differ
 because they are different layouts, not equivalent replays.
 
 ```sh
-uv run --locked python -m examples.reward.review
-uv run --locked python -m examples.reward.adversarial --markdown
-uv run --locked python -m examples.reward.adversarial --json
+uv run --locked python scripts/run_examples.py
+uv run --locked python -m tests.reward_support.adversarial --markdown
+uv run --locked python -m tests.reward_support.adversarial --json
 uv run --locked pytest -q tests/test_reward_adversarial.py tests/test_reward_adversarial_primitives.py
 ```
 

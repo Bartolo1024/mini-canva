@@ -42,11 +42,16 @@ the pending final clean-install audit.
 
 ```sh
 uv run --locked python demo.py --png artifacts/demo/summer_sale.png
-uv run --locked python -m examples.reward.review
-uv run --locked python -m examples.reward.render --all
-uv run --locked python -m examples.reward.adversarial --markdown
-uv run --locked python -m examples.mcp_client --benchmark two_column
+uv run --locked python scripts/run_examples.py
+uv run --locked python scripts/run_examples.py --output-dir artifacts/reward
+uv run --locked python -m tests.reward_support.adversarial --markdown
+uv run --locked python scripts/mcp_client.py --task two_column
 ```
+
+`scripts/run_examples.py` and `scripts/mcp_client.py` are the two public data runners.
+Raw snapshot regressions and historical comparisons live in `tests/reward_support/`.
+For additional historical probes, run `python -m tests.reward_support.assumptions`;
+formula experiments are documented in [REWARD_EXPERIMENTS.md](REWARD_EXPERIMENTS.md).
 
 Review outputs are generated from current code; do not copy old weighted reward
 tables as current results. The MCP example is a trajectory replay, not an LLM
@@ -57,7 +62,7 @@ policy. [MCP.md](MCP.md) describes the separate interactive Codex workflow.
 `uv build` produces a wheel and source archive. Runtime source lives under
 `src/marketcanvas_env`; task/trajectory YAMLs are bundled from `data/` and global
 configuration from the package. Their loaders do not rely on the working directory.
-Example scripts and the broad raw regression fixture require the source checkout.
+The utilities in `scripts/` and the broad raw regression fixtures require the source checkout.
 
 Earlier checks verified installed-wheel task replay and MCP/direct parity. Final
 fresh-install verification of the complete submission remains pending; follow

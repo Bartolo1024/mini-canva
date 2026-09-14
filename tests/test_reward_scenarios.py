@@ -6,8 +6,8 @@ from copy import deepcopy
 
 import pytest
 
-from examples.reward.benchmarks import BENCHMARKS, review_scenarios
 from marketcanvas_env.reward import compute_reward, compute_reward_breakdown
+from tests.reward_support.benchmarks import BENCHMARKS, review_scenarios
 
 
 @pytest.mark.parametrize("name", BENCHMARKS)

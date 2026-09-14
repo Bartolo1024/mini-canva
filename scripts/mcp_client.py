@@ -1,4 +1,4 @@
-"""Run a benchmark through a real MCP stdio client and print its final state and reward."""
+"""Replay a data/trajectory through MCP and print its final state and reward."""
 
 import argparse
 import asyncio
@@ -49,13 +49,15 @@ async def run(name: str, trajectory: str = "well_done") -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "--benchmark",
+        "--task",
         choices=[p.stem for p in sorted(tasks_directory().glob("*.yaml"))],
         default="default_task",
     )
     parser.add_argument("--trajectory", default="well_done", help="trajectory filename stem")
     args = parser.parse_args()
-    asyncio.run(run(args.benchmark, args.trajectory))
+    if not any(p.stem == args.trajectory for p in trajectory_paths(args.task)):
+        parser.error(f"unknown trajectory {args.task}/{args.trajectory}")
+    asyncio.run(run(args.task, args.trajectory))
 
 
 if __name__ == "__main__":

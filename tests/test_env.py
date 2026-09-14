@@ -6,13 +6,13 @@ import numpy as np
 import pytest
 from gymnasium.utils.env_checker import check_env, data_equivalence
 
-from examples.reward.benchmarks import BENCHMARKS
 from marketcanvas_env.codec import decode_action, decode_observation, encode_action
 from marketcanvas_env.core import LifecycleError
 from marketcanvas_env.env import MarketCanvasEnv
 from marketcanvas_env.models import DEFAULT_PROMPT, NewElement, RequestError
 from marketcanvas_env.reward import compute_reward_breakdown
 from marketcanvas_env.task_data import load_task
+from tests.reward_support.benchmarks import BENCHMARKS
 
 
 def test_gymnasium_checker():

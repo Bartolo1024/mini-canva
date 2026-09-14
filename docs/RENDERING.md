@@ -9,12 +9,12 @@ The existing output is an RGB NumPy array or a PNG file. MCP image access is
 From the checkout:
 
 ```sh
-uv run --locked python -m examples.reward.render --all
-uv run --locked python -m examples.reward.render --benchmark two_column --output-dir artifacts/preview
+uv run --locked python scripts/run_examples.py --output-dir artifacts/reward
+uv run --locked python scripts/run_examples.py --task two_column --output-dir artifacts/preview
 ```
 
-The first command replays all fifteen [public trajectories](DATA.md) and writes
-PNG/JSON pairs under `artifacts/reward/<task_name>/<trajectory>`. Each JSON includes
+The first command replays all fifteen [public trajectories](DATA.md), prints a reward
+table, and writes PNG/JSON pairs under `artifacts/reward/<task_name>/`. Each JSON includes
 the action trace, final state, and reward breakdown. The command creates output
 directories and overwrites matching files. Inspect successful designs alongside
 the representative attacks; some visibly bad cases still earn full reward.
@@ -46,7 +46,7 @@ env.save_png("/tmp/marketcanvas-preview.png")
 
 `render_mode=None` makes `env.render()` return None; `save_png(path)` works in
 either mode. Reset is required before image output. Rendering remains available
-after termination. The API requires an existing parent directory; the example
+after termination. The API requires an existing parent directory; the replay
 CLI creates it.
 
 For a canonical snapshot, use `render_rgb(state)` or `save_png(state, path)`

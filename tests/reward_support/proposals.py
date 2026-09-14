@@ -7,8 +7,6 @@ from copy import copy, deepcopy
 from dataclasses import replace
 from itertools import pairwise
 
-from examples.reward.adversarial import scenarios
-from examples.reward.benchmarks import BENCHMARKS
 from marketcanvas_env.reward import compute_reward_breakdown
 from marketcanvas_env.reward.colors import contrast_ratio
 from marketcanvas_env.reward.constraints import evaluate_constraint
@@ -16,6 +14,8 @@ from marketcanvas_env.reward.geometry import Rect, intersection
 from marketcanvas_env.reward.quality import evaluate_quality, harmonic_mean
 from marketcanvas_env.reward.scene import Scene, text_ink_box
 from marketcanvas_env.reward.tasks import TaskSpec
+from tests.reward_support.adversarial import scenarios
+from tests.reward_support.benchmarks import BENCHMARKS
 
 
 def clip(value):

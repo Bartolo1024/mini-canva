@@ -6,10 +6,10 @@ from pathlib import Path
 
 import numpy as np
 
-from examples.reward.benchmarks import BENCHMARKS
 from marketcanvas_env.rendering import render_rgb, save_png
 from marketcanvas_env.reward import compute_reward_breakdown
 from marketcanvas_env.reward.scene import Scene
+from tests.reward_support.benchmarks import BENCHMARKS
 
 
 def main() -> None:

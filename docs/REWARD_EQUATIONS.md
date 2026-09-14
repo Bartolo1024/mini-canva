@@ -120,7 +120,7 @@ are returned.
 ## Follow a concrete run
 
 ```sh
-uv run --locked python -m examples.reward.review
+uv run --locked python scripts/run_examples.py
 uv run --locked pytest -q
 ```
 

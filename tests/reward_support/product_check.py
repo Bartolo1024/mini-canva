@@ -4,8 +4,8 @@ import argparse
 import json
 from copy import deepcopy
 
-from examples.reward.proposals import study_cases
 from marketcanvas_env.reward import compute_reward_breakdown
+from tests.reward_support.proposals import study_cases
 
 # Constructed behavioral expectations, not labeled design-quality accuracy.
 CHECKS = [

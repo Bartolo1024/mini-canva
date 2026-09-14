@@ -7,7 +7,7 @@ This documentation consolidation does not complete M9.
 
 ## Assignment and delivered scope
 
-| Requirement from [task.pdf](../task.pdf) | Current implementation |
+| Requirement | Current implementation |
 | --- | --- |
 | Deterministic canvas with text, shapes, and image placeholders | [Core and canonical schemas](CORE.md) |
 | Semantic state, properties, relationships, and actions | [Core](CORE.md), [Gymnasium encoding](GYMNASIUM.md) |

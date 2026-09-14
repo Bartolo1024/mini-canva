@@ -5,9 +5,9 @@ from copy import deepcopy
 
 import pytest
 
-from examples.reward.benchmarks import BENCHMARKS
-from examples.reward.proposals import ProposalScene, compare, corrected, study_cases
 from marketcanvas_env.reward.tasks import TaskSpec
+from tests.reward_support.benchmarks import BENCHMARKS
+from tests.reward_support.proposals import ProposalScene, compare, corrected, study_cases
 
 
 @pytest.mark.parametrize("name", study_cases())

@@ -6,9 +6,9 @@ import numpy as np
 import pytest
 from PIL import Image
 
-from examples.reward.benchmarks import BENCHMARKS
 from marketcanvas_env.rendering import render_rgb, save_png
 from marketcanvas_env.reward.scene import Scene, get_font, text_ink_box
+from tests.reward_support.benchmarks import BENCHMARKS
 
 
 def element(**overrides):

@@ -10,13 +10,13 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from examples.reward.adversarial import scenarios
-from examples.reward.benchmarks import BENCHMARKS
 from marketcanvas_env.env import MarketCanvasEnv
 from marketcanvas_env.rendering import render_rgb
 from marketcanvas_env.reward import compute_reward_breakdown
 from marketcanvas_env.reward.scene import Scene
 from marketcanvas_env.reward.tasks import TaskSpec
+from tests.reward_support.adversarial import scenarios
+from tests.reward_support.benchmarks import BENCHMARKS
 
 
 def report(name):
@@ -281,7 +281,7 @@ def test_major_findings_are_reachable_through_canonical_actions(name):
 
 def test_review_json_is_actual_diagnostics_and_reports_missing_penalty():
     completed = subprocess.run(
-        [sys.executable, "-m", "examples.reward.adversarial", "--json"],
+        [sys.executable, "-m", "tests.reward_support.adversarial", "--json"],
         cwd=Path(__file__).resolve().parents[1],
         text=True,
         capture_output=True,

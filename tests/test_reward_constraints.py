@@ -413,7 +413,7 @@ def test_alignment_multi_selector_cannot_silently_add_canvas_reference():
 
 
 def test_all_benchmark_tasks_roundtrip_with_applicable_fields_only():
-    from examples.reward.benchmarks import BENCHMARKS
+    from tests.reward_support.benchmarks import BENCHMARKS
 
     for benchmark in BENCHMARKS.values():
         assert TaskSpec.model_validate(benchmark.task.model_dump()) == benchmark.task

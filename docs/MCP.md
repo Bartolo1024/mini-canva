@@ -43,12 +43,12 @@ Send this to the connected client:
 > trajectories. If the tools are unavailable, report the connection problem.
 
 This is an LLM-driven workflow. [demo.py](../demo.py) is a fixed Gymnasium policy;
-[examples/mcp_client.py](../examples/mcp_client.py) is a real MCP client that replays
+[scripts/mcp_client.py](../scripts/mcp_client.py) is a real MCP client that replays
 an authored trajectory. Use that replay as an account-free protocol check:
 
 ```sh
-uv run --locked python -m examples.mcp_client --benchmark two_column
-uv run --locked python -m examples.mcp_client --benchmark webinar --trajectory missing_cta
+uv run --locked python scripts/mcp_client.py --task two_column
+uv run --locked python scripts/mcp_client.py --task webinar --trajectory missing_cta
 ```
 
 These example commands require the source checkout. The installed server and its
