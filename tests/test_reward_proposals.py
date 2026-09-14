@@ -43,10 +43,9 @@ def test_duplicate_cost_sensitivity_keeps_spam_below_clean(cost):
 
 
 def test_reaggregation_alone_cannot_detect_missing_features():
-    for name in ("ink_background", "readable_role_spam"):
-        row = compare(*study_cases()[name])
-        assert row["product_only"] == row["current"] == 1
-        assert row["additive"] < row["current"]
+    row = compare(*study_cases()["readable_role_spam"])
+    assert row["product_only"] == row["current"] == 1
+    assert row["additive"] < row["current"]
 
 
 def test_effective_contrast_uses_visible_not_buried_backgrounds():

@@ -30,8 +30,10 @@ action through the same interface as RL and MCP, allocating IDs normally.
 | `event` | `well_done.yaml` | `center_stacking.yaml`, `duplicate_cta.yaml` |
 | `two_column` | `well_done.yaml` | `centered_layout.yaml`, `contrast_patch.yaml` |
 
-The set deliberately includes successful attacks: tiny logos, duplicate CTAs where count
-is unspecified, and a partial background behind text ink can still receive maximum reward.
+The set deliberately includes a successful attack: duplicate CTAs where count is
+unspecified still receive maximum reward. A partial background behind text ink is now
+detected, reducing its reward to +0.533; soft contrast still allows a positive score.
+The tiny-logo attack now fails the minimum-area presence check and receives −0.280.
 These are observable limitations, not examples of successful visual design. See [REWARD_HACKING.md](REWARD_HACKING.md).
 
 ## Load and replay

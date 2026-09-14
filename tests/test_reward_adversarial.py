@@ -217,21 +217,16 @@ def test_same_canvas_prefers_its_authored_task(other):
     )
 
 
-def test_ink_background_exploit_is_pixel_invisible_and_maximally_rewarded():
+def test_ink_background_exploit_is_pixel_invisible_but_loses_reward():
     state, task = scenarios()["ink_background"]
     without = deepcopy(state)
     without["elements"] = [e for e in without["elements"] if e["role"] != "headline"]
     assert np.array_equal(render_rgb(state), render_rgb(without))
-    assert compute_reward_breakdown(state, task)["reward"] == 1
+    assert compute_reward_breakdown(state, task)["reward"] < report("valid_summer")["reward"]
 
 
-@pytest.mark.xfail(
-    strict=True,
-    raises=AssertionError,
-    reason="RH-04: partial ink backgrounds are omitted by whole-box lookup",
-)
 def test_invisible_ink_should_not_receive_full_contrast():
-    assert report("ink_background")["quality"]["contrast"] < 1
+    assert report("ink_background")["quality"]["contrast"] == pytest.approx(1 / 4.5)
 
 
 def test_role_only_overlap_exemption_changes_reward_without_pixels():

@@ -30,20 +30,22 @@ A failed hard requirement caps reward at −0.2 with the packaged gate.
 Diagnostics separately log T, Q, G, the four quality components, and ordered constraint
 scores with explanations. The quality key `contrast` includes text usability; raw contrast
 is a separate primitive. Inspection utilities additionally expose size/visibility data.
-Production reports do **not** include normalized size scores, applicability flags, global
-matching assignments, or extraneous-element lists.
+Existence explanations include the measured area ratio and required threshold. Production
+reports do **not** include continuous size scores, applicability flags, global matching
+assignments, or extraneous-element lists.
 
 ## 3. Attack classes and regressions
 
 S refers to [`test_reward_adversarial.py`](../tests/test_reward_adversarial.py),
 P to [`test_reward_adversarial_primitives.py`](../tests/test_reward_adversarial_primitives.py).
-Names below omit the `test_` prefix. RH identifiers mark retained issues; RH-05 is a
-classification concern rather than demonstrated illegibility.
+Names below omit the `test_` prefix. RH-01's microscopic-presence failure is now mitigated
+by a minimum-area check; RH-04 now detects partial ink backgrounds. Other RH identifiers
+mark retained issues; RH-05 is a classification concern rather than demonstrated illegibility.
 
 | Attack | Naive failure | Current mitigation | Residual risk | Regression |
 | --- | --- | --- | --- | --- |
 | Offscreen / mostly offscreen | A role label counts as presence | Canvas clipping; existence needs usable visibility, default 0.8 | Presence is binary, not continuous | S `clipped_and_covered_required_elements_fail` |
-| Microscopic elements | A 1×1 object receives full presence | Text ink/inset and font checks reject tiny text/buttons | **RH-01:** tiny images/logos still score fully; no normalized size floor | S `microscopic_nontext_should_not_satisfy_presence` |
+| Microscopic elements | A 1×1 object receives full presence | Required presence checks usable visibility and minimum area/canvas area, default 0.001; text also needs usable ink/font size | Area alone does not prevent thin shapes; tasks can override the threshold | S `microscopic_nontext_fails_hard_presence` |
 | Create-all-roles spam | Enough candidates satisfy every request | Tiny text fails usability; selectors check supplied types | **RH-02:** readable disjoint spam remains free | S `nonoverlapping_spam_gap_is_observed` |
 | Duplicate CTAs | Existence grows with duplicate count | Existence is capped; explicit hard `count` enforces cardinality | **RH-02:** no inferred uniqueness or extra-object cost | S `twenty_readable_ctas_are_capped_and_explicit_count_is_hard` |
 | Multi-color hedging | Different candidates supply requested properties | Stable representative ordering; explicit counts available | **RH-02:** yellow-first hedge can tie a clean design | S `readable_spam_and_color_hedging_should_lose_to_clean_layout` |
@@ -53,7 +55,7 @@ classification concern rather than demonstrated illegibility.
 | Omission of difficult objects | Missing requirement trades for better quality | Hard gate prevents positive reward | **RH-06:** dependent constraints still receive repeated zeros | P `missing_dependent_constraints_should_be_not_applicable` |
 | Role/type spoofing | Self-reported role overrides actual type | Selectors conjunctively match role/type/ID; core reserves headline/CTA types | Role-only selectors still trust labels; overlapping selectors can reuse an object | S `type_spoof_does_not_match_shape_selector`; P `overlapping_selectors_reuse_one_element_observation` |
 | Keyword repetition | Repeating required words increases credit | Contains is capped; normalized equals rejects repetition | Contains intentionally accepts additional fitting text | S `keyword_repetition_is_capped_and_exact_text_rejects_it` |
-| Contrast gaming | High ratio is mistaken for readable content | Actual CTA fill, containing lower backgrounds, text usability | **RH-04:** a partial patch behind ink bypasses whole-box background lookup | S `ink_background_exploit_is_pixel_invisible_and_maximally_rewarded` |
+| Contrast gaming | High ratio is mistaken for readable content | Actual CTA fill; worst exposed background beneath clipped ink; text usability | Any positive-area patch counts, including glyph gaps; soft contrast can still yield positive reward | S `ink_background_exploit_is_pixel_invisible_but_loses_reward` |
 | Background-role relabeling | Metadata changes quality without changing pixels | Text-bearing backgrounds still receive usability checks | **RH-05:** identical underlay pixels score differently; fixture does not prove a bad design | S `role_only_overlap_exemption_changes_reward_without_pixels` |
 | Hidden content / z-index | Covered required content remains credited | Subtract union of higher painted rectangles | Ink rectangles approximate glyphs and holes | P `occlusion_union_is_not_double_counted_or_diluted` |
 | Malformed geometry/colors/IDs | Invalid numbers crash scoring or inflate it | Defensive parsing, invalid-record retention, finite bounded reward | Missing content defaults to empty: presence fails, structural validity can remain 1 | S `malformed_state_reduces_validity_and_stays_finite`; P `missing_content_is_semantically_empty_but_structurally_valid` |
@@ -72,15 +74,16 @@ Recomputed with packaged settings using `python scripts/run_examples.py`. Each t
 | webinar / hidden_headline | 0.556 | 0.000 | 0.400 | −0.778 |
 | webinar / missing_cta | 0.667 | 1.000 | 0.400 | −0.333 |
 | newsletter / forbidden_cta | 0.800 | 1.000 | 0.400 | −0.280 |
-| newsletter / tiny_logo | 1.000 | 1.000 | 1.000 | +1.000 |
+| newsletter / tiny_logo | 0.800 | 1.000 | 0.400 | −0.280 |
 | event / center_stacking | 0.125 | 0.000 | 0.400 | −0.950 |
 | event / duplicate_cta | 1.000 | 1.000 | 1.000 | +1.000 |
 | two_column / centered_layout | 0.900 | 1.000 | 1.000 | +0.900 |
-| two_column / contrast_patch | 1.000 | 1.000 | 1.000 | +1.000 |
+| two_column / contrast_patch | 1.000 | 0.533 | 1.000 | +0.533 |
 
-The three maximum-score attacks are unresolved loopholes. The two-column violation is
-soft and therefore remains positive. Raw regression snapshots can produce different numbers
-because they are different layouts, not equivalent replays.
+Duplicate CTA remains a maximum-score loophole. Seven attacks score negatively;
+centered layout and contrast patch are penalized but remain positive under soft scoring.
+Raw regression snapshots can produce different numbers because they are different layouts,
+not equivalent replays.
 
 ```sh
 uv run --locked python scripts/run_examples.py
@@ -90,7 +93,7 @@ uv run --locked pytest -q tests/test_reward_adversarial.py tests/test_reward_adv
 ```
 
 The adversarial utility computes 52 raw cases, with inputs and full reports available as JSON.
-There are nine strict expected-failure instances for RH-01–04/06–07, alongside passing tests
+There are six strict expected-failure instances for RH-02–03/06–07, alongside passing tests
 that assert the observed behavior. Only assertion failures are expected; unexpected passes
 require review. Add `--runxfail` to the pytest command to expose those unmet safeguards as
 ordinary failures. A green normal run does not establish that every requested safeguard holds.
@@ -113,12 +116,22 @@ receive full relative-position credit; no preferred positive-gap interval is imp
 
 Raw sRGB luminance contrast is distinct from quality C, which multiplies capped contrast
 by text usability. Usability includes font size, inset, clipping, and occlusion. Packaged
-12px font and 4px inset settings are absolute conventions, not normalized size safeguards.
+12px font and 4px inset settings are absolute conventions. The separate existence check
+requires element area / canvas area to meet `min_area_ratio` (default 0.001). These checks
+serve different purposes: font/ink checks measure text usability; area rejects microscopic
+required objects of any type.
 
-Transparent text uses the highest lower solid rectangle containing its **entire element
-box**. A patch behind only the ink is missed. The regression confirms this failure in pixels:
-removing the invisible headline leaves the image unchanged despite reward +1. A legitimate
-full background may have excellent contrast; that alone says nothing about redundant extras.
+Transparent text now checks exposed lower solid backgrounds beneath its clipped ink box,
+using the worst contrast ratio and excluding buried layers. Uncovered ink uses canvas color.
+The pixel-invisible patch regression now measures 1:1, not 18.88:1. The public trajectory
+falls from +1.000 to +0.533; it stays positive because T remains 1, contrast contributes
+1/4.5, and no hard contrast constraint is specified. Any positive-area patch counts, so
+patches in glyph gaps can be over-penalized. A legitimate full background may have excellent
+contrast; that alone says nothing about redundant extras.
+
+The fix changes background measurement only: no new thresholds, task weights, or reward
+aggregation rules were introduced. In the public patch case, B=O=V=T=G=1 and C=1/4.5,
+so Q=4/(1+1+4.5+1)=0.5333 and R=Q. All five well-done trajectories remain at +1.000.
 
 ## 7. Aggregation risks
 
@@ -136,7 +149,8 @@ addition with multiplication does not repair perfect-score exploits.
 
 ## 8. Remaining limitations
 
-There is no normalized nontext size floor, extraneous-element penalty, global one-to-one
+Minimum area applies to required presence, not every decorative element or generic quality.
+There are no minimum-width/height checks, extraneous-element penalties, global one-to-one
 matching, or best-candidate search. Count/absence include hidden matches. Shape presence
 alone need not require a label unless the shape is a button or text is explicitly requested.
 
@@ -147,9 +161,9 @@ not comprehensive accessibility guarantees or evidence of robustness against a t
 
 ## 9. Future extensions
 
-Possible measured improvements include normalized size constraints, representative binding,
-explicit dependency applicability, bounded extra-object costs, and contrast over visible
-ink/background intersections. These remain proposals, not runtime behavior. Richer typography,
+Possible measured improvements include normalized width/height constraints, representative binding,
+explicit dependency applicability, bounded extra-object costs, and glyph-level
+background sampling. These remain proposals, not runtime behavior. Richer typography,
 randomized adversarial tasks, and automatic attack search could test their trade-offs.
 
 Human preferences, Pareto objectives, learned aesthetics, or an LLM/VLM secondary judge

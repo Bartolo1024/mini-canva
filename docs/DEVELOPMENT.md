@@ -27,9 +27,11 @@ is unavailable, set `UV_CACHE_DIR=/tmp/marketcanvas-uv-cache` for these commands
 | `test_demo`, `test_task_data` | CLI behavior and legal deterministic replay of the compact public dataset |
 | `test_prompt_parser` | Unimplemented parsing boundary, explicit constraints bypass, and reset validation |
 
-The reset/parser refactor passes **765 tests with nine documented expected failures**.
-Actual MCP stdio tests passed outside the sandbox after initialization timed out
-inside it. Ruff passes, and the fifteen-trajectory reward table is unchanged.
+After the contrast-background fix, the full suite passed **796 tests with six documented
+expected failures**. Actual MCP stdio tests passed outside the sandbox after initialization
+timed out inside it. Ruff lint and format checks passed. All fifteen trajectories were
+replayed: the contrast patch dropped from +1.000 to +0.533, and the other rewards stayed
+unchanged. See the [current reward table](REWARD_HACKING.md#measured-public-trajectories).
 
 Test files live in [tests](../tests). Strict expected failures mark unmet reward
 safeguards; unexpected passes fail the suite. Use `pytest --runxfail` to expose

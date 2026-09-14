@@ -12,7 +12,6 @@ from marketcanvas_env.config import config
 from marketcanvas_env.reward.colors import RGB, contrast_ratio, parse_color
 from marketcanvas_env.reward.geometry import (
     Rect,
-    contains,
     finite_number,
     intersection,
     rectangle,
@@ -275,25 +274,43 @@ class Scene:
         return contrast_ratio(element.text_color, background)
 
     def effective_background(self, element: ElementView) -> RGB | None:
-        """Use a control's own fill or the topmost containing solid lower layer.
+        """Return ``argmin_bg contrast(text, bg)`` over exposed ink backgrounds.
 
-        Transparent text falls back to the canvas color when no solid lower
-        rectangle contains its entire element box. Partial background patches
-        are intentionally not represented by this approximation.
+        For clipped ink I, lower solid layer j contributes iff
+        ``area((I ∩ rect_j) \\ higher_lower_layers) > 0``. Walk front to back;
+        include canvas color only where no layer covers I. Controls use their
+        own fill. Every positive-area patch counts; ink remains a bounding-box
+        approximation, not a glyph mask.
         """
         if element.type != "text":
             return element.color
+        ink = text_ink_box(element)
+        if ink is None or element.rect is None or self.canvas is None:
+            return self.background
+        ink = intersection(ink, text_content_box(element.rect))
+        ink = intersection(ink, self.canvas) if ink is not None else None
+        if ink is None:
+            return self.background
         lower = [
             other
             for other in self.elements
             if other.valid
             and other.rect
-            and element.rect
             and other.color is not None
             and other.type != "text"
             and (other.z_index, other.stack_id) < (element.z_index, element.stack_id)
-            and contains(other.rect, element.rect)
+            and intersection(other.rect, ink) is not None
         ]
-        if not lower:
-            return self.background
-        return max(lower, key=lambda other: (other.z_index, other.stack_id)).color
+        backgrounds = []
+        covered = ()
+        for other in sorted(lower, key=lambda other: (other.z_index, other.stack_id), reverse=True):
+            if visible_ratio(ink, other.rect, covered) > 0:
+                backgrounds.append(other.color)
+            covered += (other.rect,)
+        if visible_ratio(ink, self.canvas, covered) > 0:
+            backgrounds.append(self.background)
+        return min(
+            backgrounds,
+            key=lambda color: contrast_ratio(element.text_color, color),
+            default=self.background,
+        )

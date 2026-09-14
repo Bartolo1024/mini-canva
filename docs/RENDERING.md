@@ -69,8 +69,8 @@ defensive scoring of malformed snapshots.
   Font metrics and inset match reward visibility helpers.
 - Draw actual antialiased glyphs and clip them to the inset/canvas. Reward uses
   rectangular ink approximations, so pixel visibility and scoring are not identical.
-  Contrast lookup still uses whole-box background containment; rendering does not
-  repair this [known exploit](REWARD_HACKING.md).
+  Contrast checks exposed backgrounds beneath the clipped ink rectangle; patches
+  between actual glyphs can still be over-penalized. See [limitations](REWARD_HACKING.md).
 - Reproducibility is scoped to the locked Pillow/font stack. Recheck after dependency
   changes; font licensing/attribution remains with the Pillow distribution.
 - No GUI, event loop, external assets, or full-canvas rasterization is needed during

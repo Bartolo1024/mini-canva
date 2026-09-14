@@ -18,7 +18,7 @@ from marketcanvas_env.reward.colors import (
 )
 from marketcanvas_env.reward.geometry import Rect, intersection_area, union_area, visible_ratio
 from marketcanvas_env.reward.quality import harmonic_mean
-from marketcanvas_env.reward.scene import Scene
+from marketcanvas_env.reward.scene import Scene, text_ink_box
 from tests.reward_support.benchmarks import BENCHMARKS
 
 
@@ -101,10 +101,57 @@ def test_effective_background_uses_highest_containing_lower_surface():
     state["elements"].append({**backing, "id": "near", "color": "#FFFFFF", "z_index": 3})
     scene = Scene(state)
     assert scene.contrast(scene.select({"id": "headline"})[0]) == pytest.approx(1)
-    # Non-containing surfaces must not be mistaken for the background.
+    # A surface outside the ink must not be mistaken for its background.
     state["elements"][-1]["width"] = 1
     scene = Scene(state)
     assert scene.contrast(scene.select({"id": "headline"})[0]) == pytest.approx(21)
+
+
+def test_partial_ink_background_uses_worst_exposed_color_and_respects_stacking():
+    state = deepcopy(BENCHMARKS["summer_sale"].state)
+    headline = state["elements"][0]
+    headline.update(text_color="#000000", z_index=4)
+    scene = Scene(state)
+    ink = text_ink_box(scene.select({"id": "headline"})[0])
+    patch = {
+        "id": "patch",
+        "type": "image",
+        "color": "#000000",
+        "z_index": 1,
+        "x": ink.x,
+        "y": ink.y,
+        "width": ink.width / 2,
+        "height": ink.height,
+    }
+    state["elements"].append(patch)
+
+    def ratio():
+        scene = Scene(state)
+        return scene.contrast(scene.select({"id": "headline"})[0])
+
+    assert ratio() == pytest.approx(1)  # Half black, half white: worst wins.
+    patch["color"] = "#FFFFFF"
+    state["canvas"]["background_color"] = "#000000"
+    assert ratio() == pytest.approx(1)  # The exposed canvas must also count.
+    state["canvas"]["background_color"] = "#FFFFFF"
+    patch["color"] = "#000000"
+    # Two white surfaces jointly bury the dark patch; neither alone contains it.
+    for index in range(2):
+        state["elements"].append(
+            {
+                **patch,
+                "id": f"cover{index}",
+                "z_index": 2,
+                "color": "#FFFFFF",
+                "x": ink.x + index * ink.width / 4,
+                "width": ink.width / 4,
+            }
+        )
+    assert ratio() == pytest.approx(21)
+    patch["z_index"] = 3
+    assert ratio() == pytest.approx(1)
+    patch["z_index"] = 5
+    assert ratio() == pytest.approx(21)  # Above-text coverage belongs to usability.
 
 
 def test_shape_label_uses_own_fill_and_image_underlay_is_not_a_collision():

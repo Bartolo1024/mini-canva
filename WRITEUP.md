@@ -69,7 +69,8 @@ $$
 
 An empty canvas has $B=V=0$; no text gives $C=1$; no forbidden pairs gives $O=1$.
 Text usability includes font size, clipping, and coverage by higher elements. Contrast
-uses WCAG linearized sRGB luminance and the selected underlying background.
+uses WCAG linearized sRGB luminance and the worst exposed background beneath the
+clipped text ink; button labels use their own fill.
 Heuristic defaults are in the [global YAML config](src/marketcanvas_env/config/environment_config.yaml).
 
 Alignment is task-specific. Its score is
@@ -95,14 +96,14 @@ with `python scripts/run_examples.py` gives these terminal rewards:
 | Newsletter | `tiny_logo` | 0.800 | 1.000 | 0.4 | -0.280 |
 | Two-column | `well_done` | 1.000 | 1.000 | 1.0 | +1.000 |
 | Two-column | `centered_layout` | 0.900 | 1.000 | 1.0 | **+0.900** |
-| Two-column | `contrast_patch` | 1.000 | 1.000 | 1.0 | **+1.000** |
+| Two-column | `contrast_patch` | 1.000 | 0.533 | 1.0 | **+0.533** |
 | Webinar | `well_done` | 1.000 | 1.000 | 1.0 | +1.000 |
 | Webinar | `hidden_headline` | 0.556 | 0.000 | 0.4 | -0.778 |
 | Webinar | `missing_cta` | 0.667 | 1.000 | 0.4 | -0.333 |
 
-Seven attacks score negatively, but two still earn full reward and one is only weakly
-penalized. Tiny logos now fail the configurable minimum-area check (default 0.1% of
-the canvas), and missing hard requirements activate the gate.
+Seven attacks score negatively, but duplicate CTA still earns full reward; centered layout
+and contrast patch are penalized but remain positive. Tiny logos now fail the configurable
+minimum-area check (default 0.1% of the canvas), and missing hard requirements activate the gate.
 
 **Duplicate CTA — a gap with a trade-off.** The original CTA satisfies the task;
 the extra button is readable and does not overlap anything. The task has no exact
@@ -111,12 +112,12 @@ surplus-element penalty remains unimplemented because identifying unnecessary el
 also requires allowing legitimate decorations and repeated controls. Existence is capped,
 but that alone does not make duplication worse.
 
-**Contrast patch — a measurement flaw.** A dark patch behind dark headline ink is
-ignored because background lookup requires the patch to contain the entire text box.
-The evaluator reports about 18.88:1 against the white canvas, although the actual
-text/patch contrast is 1:1. Whole-box lookup is simple, but this is an unresolved flaw,
-not a desirable trade-off. It needs a check of backgrounds beneath the text;
-a clutter penalty would not correct the false contrast measurement.
+**Contrast patch — detected, but still positive.** Background lookup now checks the
+clipped ink area and uses the worst exposed background, ignoring buried layers. It
+correctly measures 1:1 and reduces this example from +1.000 to +0.533. The score stays
+positive because task requirements pass and soft contrast gives 1:1 partial credit.
+A hard contrast requirement would activate the gate. Ink boxes still approximate glyphs;
+even a small patch between letters can reduce contrast.
 
 **Centered two-column layout — weak punishment.** Four region constraints score 0.75;
 the other six score 1, giving $T=(4\times0.75+6)/10=0.9$. Quality stays perfect and
@@ -131,8 +132,9 @@ policy strategy. See [reward equations](docs/REWARD_EQUATIONS.md) and
 
 ## Scaling to 10,000 VLM PPO rollouts
 
-At 10,000 parallel rollouts, I would expect the simulator itself to remain relatively cheap. The dominant bottlenecks would come from model inference, memory, and data movement. Since the environment state is represented as JSON, observations should be relatively lightweight to serialize and batch. I would therefore separate environment execution from model serving: thousands of logical MarketCanvas environments could be maintained in vectorized CPU workers, while JSON observations are submitted asynchronously to a smaller pool of GPU inference workers using continuous batching.
-For PPO, rollout workers would collect actions, old log-probabilities, value estimates, and rewards, while a separate learner pool performs policy/value updates and periodically redistributes updated weights. Because PPO is on-policy, policy staleness between rollout workers and learners would need to be bounded. I would also avoid MCP in the PPO training hot path and instead use a direct in-process or vectorized environment API, since serialization and RPC overhead can become significant at this scale.
-The current JSON state representation should be preferable to image-based observations for this setup. Processing images (if someone would have images as state) would be substantially harder to scale because it would add image rendering, encoding, preprocessing, GPU memory, and data transfer costs. If visual observations were introduced later, rendering and preprocessing would need to be lazy and batched rather than performed for every environment step.
-Asynchronous rollouts are preferable to strict lock-step execution because episode lengths vary, otherwise slow trajectories create stragglers and leave expensive GPU capacity idle. Completed environments should immediately reset and re-enter the inference queue.
-A further simplification would be to consider GRPO instead of PPO for this environment. MarketCanvas has a cheap deterministic terminal reward and can easily generate multiple independent trajectories for the same TaskSpec. GRPO can therefore replace the learned value-function baseline with relative rewards across a group of rollouts, removing the critic/value-model path and simplifying the training architecture. The grouped rollouts are naturally parallelizable across inference workers. The trade-off is increased generation cost, since several trajectories must be sampled per task, and group-level synchronization can introduce its own stragglers. For short, verifiable MarketCanvas tasks, however, GRPO may be operationally simpler than PPO while making good use of the environment's deterministic reward signal.
+At 10,000 parallel rollouts, I would expect the MarketCanvas simulator itself to stay relatively cheap. The main bottlenecks would be VLM inference, GPU memory, image preprocessing, KV-cache memory, and data transfer. I would keep many logical or vectorized canvas environments in a limited number of CPU workers, while GPU workers process observations in batches.
+For the VLM setup, I would use the existing RGB rendering. One 800×600 RGB `uint8` image is 1.44 MB, so 10,000 images are about 14.4 GB before model tensors or trajectory storage. Because of this, images should only be rendered when needed. I would avoid PNG encoding during training, batch image preprocessing, and reduce unnecessary memory copies and long conversation history.
+For PPO, rollout workers would collect actions, old log probabilities, value estimates, rewards, and policy version information. A separate learner pool would update the policy and value model. Because PPO is on-policy, the difference between the policy used for rollout generation and the current policy should not become too large.
+I would avoid MCP in the PPO training path and use a direct in-process or vectorized API instead, because RPC and serialization would add unnecessary overhead at this scale. Rollouts should also run asynchronously instead of waiting for all environments at every step, so slower episodes do not leave GPU resources unused.
+Before increasing the number of parallel environments, I would measure VLM throughput, GPU memory usage, queue delays, and policy staleness.
+

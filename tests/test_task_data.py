@@ -71,12 +71,9 @@ def test_representative_attacks_show_both_mitigations_and_remaining_loopholes():
     ]:
         assert scores[task, name] < 0
     assert scores["two_column", "centered_layout"] < scores["two_column", "well_done"]
+    assert 0 < scores["two_column", "contrast_patch"] < scores["two_column", "well_done"]
     # Observations of known loopholes, not claims that all attacks have been mitigated.
-    for task, name in [
-        ("event", "duplicate_cta"),
-        ("two_column", "contrast_patch"),
-    ]:
-        assert scores[task, name] == 1
+    assert scores["event", "duplicate_cta"] == 1
 
 
 def test_loaded_action_lists_are_independent():

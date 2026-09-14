@@ -31,7 +31,7 @@ not detect every logically equivalent or overlapping predicate.
 
 | Kind | Required fields and options |
 | --- | --- |
-| `exists` | `selector`; optional `min_visible_ratio`. Binary usable-presence test |
+| `exists` | `selector`; optional `min_visible_ratio` and `min_area_ratio`. Binary visibility-and-area presence test |
 | `absent` | `selector`. Binary zero-match test |
 | `count` | `selector`, `operator` eq/lte/gte, nonnegative integer `value` |
 | `text_contains` | `selector`, string `value`; case-insensitive substring |
@@ -52,15 +52,17 @@ a search for best content/color satisfaction. Count and absence include hidden o
 unusable matches. Existence cannot exceed one; uniqueness requires a count constraint.
 
 Soft property/layout scores are attenuated by usable visibility, saturating at the
-configured threshold. Exists uses its own binary visibility threshold. Missing
+configured threshold. Exists requires both usable visibility and normalized area to
+meet its thresholds, inherited from global settings unless overridden. Missing
 dependencies score zero, except `no_overlap`: a missing selector group gives full
 credit because no matching pairs can be checked. There is no N/A aggregation or
 global one-to-one requirement assignment. Separate rules can select the same object.
 
 Position rules use box centers/edges, not glyph geometry. Relative placement reaches
 full credit at edge contact: it does not impose an unrequested positive gap. Size
-comparisons are literal: width 110 is greater than 100. Absolute normalized size
-floors, preferred gap intervals, and clutter penalties are not supported.
+comparisons are literal: width 110 is greater than 100. Existence has a normalized
+minimum-area check; minimum-width/height rules, preferred gap intervals, and clutter
+penalties are not supported.
 
 ## Global configuration
 
@@ -73,6 +75,7 @@ They apply across tasks and load once at startup; restart Python/MCP after edits
 | --- | --- |
 | `hard_failure_gate` | Hard-failure multiplier, default 0.4; constrained to at most 0.5 |
 | `min_visible_ratio` | Default usable-presence threshold / soft visibility saturation, 0.8 |
+| `min_area_ratio` | Minimum element area / canvas area for required presence, 0.001 (0.1%) |
 | `contrast_full_credit_ratio` | Generic quality contrast threshold and default for `contrast_min`, 4.5 |
 | `side_region_falloff_span`, `center_region_falloff_span` | Continuous regional scoring spans |
 | `alignment_falloff_span` | Alignment decay span as a fraction of canvas size, default 0.5 |
@@ -92,12 +95,14 @@ input contracts.
 The read-only Scene validates geometry, identity, relevant colors, and content.
 It clips to the canvas and subtracts the union of higher painted rectangles.
 Text uses approximate ink boxes, fixed font metrics, and the shared inset; tiny or
-blank text is unusable. Nontext objects have no normalized minimum-size safeguard.
+blank text is unusable. Required objects of every type must also meet the minimum
+area ratio. This check belongs to `exists`; it does not impose size rules on all
+decorations or prevent thin shapes with sufficient area.
 
-Text elements have transparent backgrounds. Contrast uses the highest lower solid
-shape/image containing the entire text box, otherwise the canvas background.
-A shape label uses its own fill. This misses partial backgrounds beneath ink:
-a pixel-invisible headline can receive full score. Unlabeled backgrounds and image
+Text elements have transparent backgrounds. Contrast uses the worst ratio across exposed
+lower solid shapes/images beneath the clipped ink box, including uncovered canvas color.
+Buried colors are ignored; any positive-area patch counts. A shape label uses its own fill.
+Ink rectangles approximate glyphs, so a patch between letters can be penalized too. Unlabeled backgrounds and image
 underlays are exempt from generic collision scoring; explicit task `no_overlap`
 does not use that exemption.
 

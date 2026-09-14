@@ -12,7 +12,7 @@ for commands and [WRITEUP](../WRITEUP.md) for the submission overview.
 | [Core](CORE.md) | Elements, actions, state, validation, IDs, and episode lifecycle |
 | [Gymnasium](GYMNASIUM.md) | Scored API, reset, observation/action encoding, and termination |
 | [Tasks and trajectories](DATA.md) | Five tasks, fifteen replayable examples, and adding a task |
-| [Reward one-pager](REWARD_ONE_PAGER.md) | Compact equations, variable definitions, defenses, and remaining loopholes |
+| [Reward overview](../WRITEUP.md#reward-construction-and-loopholes) | Compact equations, variable definitions, measured examples, and remaining loopholes |
 | [TaskSpec authoring](REWARD.md) | Supported constraints, selection rules, and global configuration |
 | [Reward equations](REWARD_EQUATIONS.md) | Computation order, equations, and corresponding functions |
 | [Reward hacking](REWARD_HACKING.md) | Measured attacks, defenses, failed safeguards, and regression tests |

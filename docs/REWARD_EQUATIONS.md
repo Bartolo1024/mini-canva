@@ -40,7 +40,7 @@ score zero. `no_overlap` is the exception: an empty selected group scores one.
 
 | TaskSpec kind → function in `constraints.py` | Equation / rule |
 | --- | --- |
-| `exists` → `evaluate_exists` | `[first exists, valid, and u_first ≥ task threshold]` |
+| `exists` → `evaluate_exists` | `[first exists and valid and u_first ≥ min_visible_ratio and area(first) / area(canvas) ≥ min_area_ratio]` |
 | `absent` → `evaluate_absent` | `[number of matches = 0]` |
 | `count` → `evaluate_count` | `[number of matches operator target]` |
 | `text_contains` → `evaluate_text_contains` | `[case-folded target is a substring] × a_first` |
@@ -52,6 +52,13 @@ score zero. `no_overlap` is the exception: an empty selected group scores one.
 | `alignment` → `evaluate_alignment` | `clip(1 − position_spread / canvas_span / configured_tolerance) × min(a_selected)` |
 | `contrast_min` → `evaluate_contrast_min` | `min(clip(rho_e / task_threshold)) × min(a_selected)` |
 | `no_overlap` → `evaluate_no_overlap` | `(1 − max(intersection_area / smaller_area)) × min(a_selected)` |
+
+Existence requires both visibility and area to pass. Omitted `min_visible_ratio` and
+`min_area_ratio` inherit global defaults 0.8 and 0.001; the latter is 0.1% of canvas area
+(480 pixels² on 800×600). Task overrides are supported. This binary safeguard rejects
+1×1 required images/logos without imposing a width, height, or preferred aspect ratio.
+The explanation logs measured visibility and area ratio. An omitted `contrast_min.value`
+uses the global `contrast_full_credit_ratio`, default 4.5.
 
 Region scores use configured side/center falloff spans; compound regions take the minimum.
 Pair rules require distinct representatives. A single `no_overlap` selector checks every match;
@@ -94,8 +101,12 @@ rho = (max(L_text,L_background)+0.05) / (min(L_text,L_background)+0.05)
 ```
 
 Each color function documents its sRGB equation. A shape label uses its own fill. Transparent
-text uses the highest lower solid rectangle containing its entire box, or the canvas color.
-This approximation misses partial ink backgrounds; it is not a complete readability assessment.
+text checks its ink box clipped to the inset and canvas. For each lower solid layer j,
+include its color only if `area((ink ∩ rect_j) \ higher_lower_layers) > 0`. Include the
+canvas color wherever no solid layer covers the ink. Then `rho = min(contrast(text, bg))`
+over these exposed colors. This catches partial patches without counting buried colors.
+Every positive-area patch counts; rectangular ink can over-penalize patches in glyph gaps.
+This is not a complete readability assessment.
 
 ## (4) Hard gate and (5) final reward
 

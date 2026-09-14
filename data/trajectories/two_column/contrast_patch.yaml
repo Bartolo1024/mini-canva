@@ -1,5 +1,5 @@
 task: two_column
-description: Same-colored patch under headline ink exploits whole-box background lookup.
+description: Same-colored patch hides headline ink; contrast detects it, but soft scoring remains positive.
 seed: 0
 actions:
 - op: add_element
