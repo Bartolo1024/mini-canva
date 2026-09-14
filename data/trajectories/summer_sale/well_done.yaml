@@ -1,4 +1,4 @@
-task: default_task
+task: summer_sale
 description: A valid solution satisfying this task.
 seed: 0
 actions:

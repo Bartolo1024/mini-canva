@@ -7,7 +7,6 @@ constraints: # TODO remove it and parse the prompt with some deterministic parse
   selector:
     role: product
     type: image
-  min_visible_ratio: 0.8
 - id: region_2
   kind: region
   selector:
@@ -19,7 +18,6 @@ constraints: # TODO remove it and parse the prompt with some deterministic parse
   selector:
     role: headline
     type: text
-  min_visible_ratio: 0.8
 - id: region_4
   kind: region
   selector:
@@ -31,7 +29,6 @@ constraints: # TODO remove it and parse the prompt with some deterministic parse
   selector:
     role: subtitle
     type: text
-  min_visible_ratio: 0.8
 - id: region_6
   kind: region
   selector:
@@ -43,7 +40,6 @@ constraints: # TODO remove it and parse the prompt with some deterministic parse
   selector:
     role: cta
     type: shape
-  min_visible_ratio: 0.8
 - id: region_8
   kind: region
   selector:

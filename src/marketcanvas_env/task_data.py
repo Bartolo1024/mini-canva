@@ -23,7 +23,7 @@ def tasks_directory() -> Path:
         return checkout / "data" / "tasks"
     installed = distribution("marketcanvas-env")
     for entry in installed.files or ():
-        if entry.parts[-2:] == ("tasks", "default_task.yaml"):
+        if entry.parts[-2:] == ("tasks", "summer_sale.yaml"):
             return Path(installed.locate_file(entry)).resolve().parent
     raise FileNotFoundError(
         "MarketCanvas task data is missing; reinstall the package with its data"
@@ -44,7 +44,7 @@ def _document(path: Path) -> dict[str, Any]:
     return value
 
 
-def load_task(filename: str | Path = "default_task.yaml") -> TaskSpec:
+def load_task(filename: str | Path = "summer_sale.yaml") -> TaskSpec:
     """Read a plain TaskSpec YAML. A bare filename refers to bundled task data."""
     return TaskSpec.model_validate(deepcopy(_document(_path(filename))))
 

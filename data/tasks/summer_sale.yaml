@@ -1,4 +1,4 @@
-# Default scoring task; action trajectories live in data/trajectories/default_task.
+# Summer Sale scoring task; action trajectories live in data/trajectories/summer_sale.
 prompt: Create a Summer Sale email banner with a headline, a yellow CTA button, and
   good contrast.
 constraints: # TODO remove it and parse the prompt with some deterministic parser
@@ -29,4 +29,3 @@ constraints: # TODO remove it and parse the prompt with some deterministic parse
   selectors:
   - role: headline
   - role: cta
-  value: 4.5

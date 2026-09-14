@@ -11,7 +11,7 @@ from marketcanvas_env.codec import encode_action, decode_observation
 from marketcanvas_env.task_data import load_task
 
 env = MarketCanvasEnv()
-task = load_task("default_task.yaml").model_dump(mode="json")
+task = load_task("summer_sale.yaml").model_dump(mode="json")
 observation, info = env.reset(seed=7, options=task)
 assert decode_observation(observation) == env.get_canvas_state()
 action = {
@@ -73,7 +73,7 @@ structural validation. Reset and close do not issue reward.
 
 ## Reset and reproducibility
 
-`reset()` always restores [the default TaskSpec](../data/tasks/default_task.yaml),
+`reset()` always restores [the Summer Sale TaskSpec](../data/tasks/summer_sale.yaml),
 including after a previous custom task. Pass a YAML task dictionary directly as
 `options={"prompt": text, "constraints": [...]}`. An explicit `constraints` key
 bypasses parsing, including `[]`; prompt metadata is optional and defaults to empty.

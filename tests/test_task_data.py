@@ -19,7 +19,7 @@ from marketcanvas_env.task_data import (
 
 def test_public_data_contains_five_tasks_and_three_runs_per_task():
     names = {p.stem for p in tasks_directory().glob("*.yaml")}
-    assert names == {"default_task", "webinar", "newsletter", "event", "two_column"}
+    assert names == {"summer_sale", "webinar", "newsletter", "event", "two_column"}
     for name in names:
         paths = trajectory_paths(name)
         assert len(paths) == 3
@@ -61,8 +61,8 @@ def test_representative_attacks_show_both_mitigations_and_remaining_loopholes():
         for p in trajectory_paths()
     }
     for task, name in [
-        ("default_task", "offscreen_headline"),
-        ("default_task", "small_element_spam"),
+        ("summer_sale", "offscreen_headline"),
+        ("summer_sale", "small_element_spam"),
         ("webinar", "missing_cta"),
         ("webinar", "hidden_headline"),
         ("newsletter", "forbidden_cta"),
@@ -80,7 +80,7 @@ def test_representative_attacks_show_both_mitigations_and_remaining_loopholes():
 
 
 def test_loaded_action_lists_are_independent():
-    path = trajectory_paths("default_task")[0]
+    path = trajectory_paths("summer_sale")[0]
     first = load_trajectory(path)
     first["actions"].clear()
     assert load_trajectory(path)["actions"]
@@ -142,7 +142,7 @@ def test_trajectory_requires_exactly_one_final_finish(tmp_path, actions):
     path = tmp_path / "invalid.yaml"
     path.write_text(
         yaml.safe_dump(
-            {"task": "default_task", "description": "invalid", "seed": 0, "actions": actions}
+            {"task": "summer_sale", "description": "invalid", "seed": 0, "actions": actions}
         )
     )
     with pytest.raises(ValueError):
@@ -151,7 +151,7 @@ def test_trajectory_requires_exactly_one_final_finish(tmp_path, actions):
 
 def test_raw_canvas_snapshot_is_not_accepted_as_a_trajectory(tmp_path):
     path = tmp_path / "snapshot.yaml"
-    path.write_text("task_file: default_task.yaml\nstate: {}\n")
+    path.write_text("task_file: summer_sale.yaml\nstate: {}\n")
     with pytest.raises(ValueError, match="actions"):
         load_trajectory(path)
 

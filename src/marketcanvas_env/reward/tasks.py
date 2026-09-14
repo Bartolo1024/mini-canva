@@ -94,6 +94,8 @@ class Constraint(BaseModel):
             raise ValueError("selector and selectors are mutually exclusive")
         if kind == "alignment" and data.get("selectors") and data.get("reference") is not None:
             raise ValueError("canvas reference only applies to the single-selector alignment form")
+        if kind == "contrast_min" and "value" not in data:
+            return {**data, "value": config.reward.contrast_full_credit_ratio}
         return data
 
     @model_serializer(mode="wrap")

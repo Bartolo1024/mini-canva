@@ -6,7 +6,7 @@ canvas. Global limits and scoring settings remain in `src/marketcanvas_env/confi
 ```text
 data/
 ├── tasks/                  # Five plain TaskSpec YAMLs
-│   ├── default_task.yaml   # Summer Sale
+│   ├── summer_sale.yaml   # Summer Sale
 │   ├── webinar.yaml
 │   ├── newsletter.yaml
 │   ├── event.yaml
@@ -24,7 +24,7 @@ action through the same interface as RL and MCP, allocating IDs normally.
 
 | Task | Successful solution | Representative attacks |
 | --- | --- | --- |
-| `default_task` | `well_done.yaml` | `offscreen_headline.yaml`, `small_element_spam.yaml` |
+| `summer_sale` | `well_done.yaml` | `offscreen_headline.yaml`, `small_element_spam.yaml` |
 | `webinar` | `well_done.yaml` | `hidden_headline.yaml`, `missing_cta.yaml` |
 | `newsletter` | `well_done.yaml` | `forbidden_cta.yaml`, `tiny_logo.yaml` |
 | `event` | `well_done.yaml` | `center_stacking.yaml`, `duplicate_cta.yaml` |

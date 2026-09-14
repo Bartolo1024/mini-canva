@@ -9,9 +9,9 @@ For computation order and diagnostics, read [REWARD_EQUATIONS.md](REWARD_EQUATIO
 from marketcanvas_env.reward import compute_reward, compute_reward_breakdown
 from marketcanvas_env.task_data import load_task, replay_trajectory, trajectory_paths
 
-path = next(p for p in trajectory_paths("default_task") if p.stem == "well_done")
+path = next(p for p in trajectory_paths("summer_sale") if p.stem == "well_done")
 episode = replay_trajectory(path)
-task = load_task("default_task.yaml")
+task = load_task("summer_sale.yaml")
 reward = compute_reward(episode["state"], task)
 report = compute_reward_breakdown(episode["state"], task)
 ```
@@ -42,7 +42,7 @@ not detect every logically equivalent or overlapping predicate.
 | `relative_position` | `subject`, `object`, `relation`: above/below/left_of/right_of |
 | `alignment` | `value`: horizontal_centers/vertical_centers/left_edges/right_edges; multiple `selectors` or one `selector` with `reference="canvas"` |
 | `size_relation` | `subject`, `object`; optional `metric`: width/height/area (default area), and `operator` gt/lt/gte/lte (default gt) |
-| `contrast_min` | One `selector` or multiple `selectors`; ratio `value` in [1,21] |
+| `contrast_min` | One `selector` or multiple `selectors`; optional ratio `value` in [1,21], otherwise the global contrast threshold |
 | `no_overlap` | One `selector` checks all matches; multiple `selectors` check their representatives |
 
 Selectors combine all supplied `id`, `role`, and `type` fields. An empty selector
@@ -73,7 +73,7 @@ They apply across tasks and load once at startup; restart Python/MCP after edits
 | --- | --- |
 | `hard_failure_gate` | Hard-failure multiplier, default 0.4; constrained to at most 0.5 |
 | `min_visible_ratio` | Default usable-presence threshold / soft visibility saturation, 0.8 |
-| `contrast_full_credit_ratio` | Generic quality contrast threshold, 4.5 |
+| `contrast_full_credit_ratio` | Generic quality contrast threshold and default for `contrast_min`, 4.5 |
 | `side_region_falloff_span`, `center_region_falloff_span` | Continuous regional scoring spans |
 | `alignment_falloff_span` | Alignment decay span as a fraction of canvas size, default 0.5 |
 | `min_readable_font_size`, `text_inset` | Text usability minimum and padding shared with rendering, defaults 12 and 4 pixels |
@@ -125,7 +125,7 @@ An explicit `constraints` key supplies already translated requirements and bypas
 parsing, even when its value is `[]`. The optional `prompt` is metadata; constraints
 alone use an empty prompt. The existing `options={"target": task}` form remains an
 alternative and cannot be combined with `prompt` or `constraints`. Reset with no
-options loads the default YAML.
+options loads the Summer Sale YAML.
 
 [`parse_prompt`](../src/marketcanvas_env/prompt_parser.py) is an unimplemented
 extension point. Supplying only a prompt calls it and raises `NotImplementedError`,

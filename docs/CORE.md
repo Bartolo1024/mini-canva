@@ -11,7 +11,7 @@ from marketcanvas_env import CanvasCore
 from marketcanvas_env.task_data import load_task
 
 canvas = CanvasCore()
-state, info = canvas.reset(seed=7, options={"target": load_task("default_task.yaml")})
+state, info = canvas.reset(seed=7, options={"target": load_task("summer_sale.yaml")})
 transition = canvas.apply_action(
     {
         "op": "add_element",

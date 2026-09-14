@@ -167,6 +167,7 @@ def test_constraint_schema_and_serialization_have_no_weight():
         ("count", 1.5, "eq"),
         ("count", 1, "gt"),
         ("contrast_min", 0, None),
+        ("contrast_min", None, None),
         ("contrast_min", float("nan"), None),
         ("region", "diagonal", None),
         ("color_family", "mauve", None),
@@ -177,6 +178,26 @@ def test_constraint_schema_and_serialization_have_no_weight():
 def test_kind_specific_author_validation(kind, value, operator):
     with pytest.raises(ValidationError):
         Constraint(id="x", kind=kind, selector={}, value=value, operator=operator)
+
+
+def test_omitted_contrast_threshold_uses_default_without_mutating_input():
+    from marketcanvas_env.config import config
+
+    data = {"id": "contrast", "kind": "contrast_min", "selector": {"role": "control"}}
+    default = Constraint.model_validate(data)
+    explicit = Constraint.model_validate(
+        {**data, "value": config.reward.contrast_full_credit_ratio}
+    )
+    assert "value" not in data
+    assert default == explicit
+    assert Constraint.model_validate_json(default.model_dump_json()) == explicit
+    scene = canvas(element(text_color="#777777"))
+    assert evaluate_constraint(default, scene) == evaluate_constraint(explicit, scene)
+    with pytest.raises(ValidationError, match="duplicate requirements"):
+        TaskSpec(
+            prompt="Good contrast",
+            constraints=[default, explicit.model_copy(update={"id": "duplicate"})],
+        )
 
 
 def test_generic_text_color_and_counts():

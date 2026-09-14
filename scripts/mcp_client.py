@@ -51,7 +51,7 @@ def main() -> None:
     parser.add_argument(
         "--task",
         choices=[p.stem for p in sorted(tasks_directory().glob("*.yaml"))],
-        default="default_task",
+        default="summer_sale",
     )
     parser.add_argument("--trajectory", default="well_done", help="trajectory filename stem")
     args = parser.parse_args()

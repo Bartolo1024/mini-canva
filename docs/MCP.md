@@ -68,7 +68,7 @@ not encoded Gymnasium tuples or JSON strings. For example, finish is
 `{"action":{"op":"finish"}}`; see [CORE.md](CORE.md) for editing payloads.
 
 The server performs a default reset on startup. `reset_canvas({})` restores the
-default task. Pass the task YAML's fields directly as `{"prompt": ..., "constraints": [...]}`.
+Summer Sale task. Pass the task YAML's fields directly as `{"prompt": ..., "constraints": [...]}`.
 Supplying `constraints`, even `[]`, bypasses parsing; prompt metadata is optional.
 The existing `target` argument accepts an already translated TaskSpec and cannot
 be combined with `prompt` or `constraints`. Prompt-only reset returns the

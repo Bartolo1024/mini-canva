@@ -16,7 +16,7 @@ def run_demo(prompt: str | None = None, png: Path | None = None) -> dict:
     try:
         options = load_task().model_dump(mode="json") if prompt is None else {"prompt": prompt}
         env.reset(options=options)
-        # A fixed Summer Sale policy using the default YAML's authored constraints.
+        # A fixed Summer Sale policy using the Summer Sale YAML's authored constraints.
         elements = [
             {
                 "type": "text",
@@ -124,7 +124,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--prompt",
-        help=f'future prompt parsing (not implemented); default YAML describes "{DEFAULT_PROMPT}"',
+        help=f'future prompt parsing (not implemented); Summer Sale YAML describes "{DEFAULT_PROMPT}"',
     )
     parser.add_argument(
         "--png",

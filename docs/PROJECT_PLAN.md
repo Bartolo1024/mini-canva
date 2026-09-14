@@ -13,7 +13,7 @@ This documentation consolidation does not complete M9.
 | Semantic state, properties, relationships, and actions | [Core](CORE.md), [Gymnasium encoding](GYMNASIUM.md) |
 | Bounded, inspectable, task-driven terminal reward | [TaskSpec](REWARD.md), [equations](REWARD_EQUATIONS.md), [adversarial analysis](REWARD_HACKING.md) |
 | MCP access for an LLM client | [Four stdio tools and Codex connection](MCP.md) |
-| Programmatic demo for a mock task | [demo.py](../demo.py) loads default YAML; explicit prompt parsing remains unimplemented |
+| Programmatic demo for a mock task | [demo.py](../demo.py) loads Summer Sale YAML; explicit prompt parsing remains unimplemented |
 | State/action rationale, reward loopholes, 10,000-rollout discussion | [WRITEUP.md](../WRITEUP.md) |
 | Optional image output | [On-demand RGB and PNG](RENDERING.md) |
 

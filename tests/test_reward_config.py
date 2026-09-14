@@ -160,6 +160,12 @@ assert text_content_box(e.rect).x == text_ink_box(e).x == 110
 assert text_content_box(e.rect).width == 130
 report = compute_reward_breakdown(text_state, TaskSpec(prompt="x"))
 assert isclose(report["quality"]["contrast"], scene.contrast(e) / 7)
+default_contrast = Constraint(id="contrast", kind="contrast_min", selector={"role": "body"})
+assert default_contrast.value == 7
+assert isclose(evaluate_constraint(default_contrast, scene)[0], scene.contrast(e) / 7)
+explicit_contrast = Constraint(id="contrast", kind="contrast_min", selector={"role": "body"}, value=3)
+assert explicit_contrast.value == 3
+assert evaluate_constraint(explicit_contrast, scene)[0] == 1
 pixels = render_rgb(text_state)
 assert (pixels[100:110, 100:250] == 255).all()
 assert (pixels[110:150, 110:230] != 255).any()

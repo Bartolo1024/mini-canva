@@ -7,7 +7,6 @@ constraints: # TODO remove it and parse the prompt with some deterministic parse
   selector:
     role: headline
     type: text
-  min_visible_ratio: 0.8
 - id: text_equals_2
   kind: text_equals
   selector:
@@ -19,7 +18,6 @@ constraints: # TODO remove it and parse the prompt with some deterministic parse
   selector:
     role: logo
     type: image
-  min_visible_ratio: 0.8
 - id: region_4
   kind: region
   selector:

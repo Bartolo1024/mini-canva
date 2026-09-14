@@ -7,21 +7,18 @@ constraints: # TODO remove it and parse the prompt with some deterministic parse
   selector:
     role: headline
     type: text
-  min_visible_ratio: 0.8
 - id: exists_2
   kind: exists
   hard: true
   selector:
     role: date
     type: text
-  min_visible_ratio: 0.8
 - id: exists_3
   kind: exists
   hard: true
   selector:
     role: cta
     type: shape
-  min_visible_ratio: 0.8
 - id: alignment_4
   kind: alignment
   selectors:

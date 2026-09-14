@@ -22,7 +22,7 @@ from marketcanvas_env.task_data import load_task
 
 
 def _task_options(options: Any) -> tuple[dict[str, Any], str]:
-    """Normalize default YAML and the existing target alias into task fields."""
+    """Normalize Summer Sale YAML and the existing target alias into task fields."""
     if options is None or options == {}:
         options, source = load_task().model_dump(mode="json"), "default"
     else:

@@ -1,4 +1,4 @@
-task: default_task
+task: summer_sale
 description: Thirty microscopic role/color variants try to satisfy presence.
 seed: 0
 actions:

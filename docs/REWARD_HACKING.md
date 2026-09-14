@@ -67,8 +67,8 @@ Recomputed with packaged settings using `python scripts/run_examples.py`. Each t
 
 | Task / trajectory | T | Q | G | R |
 | --- | ---: | ---: | ---: | ---: |
-| default_task / offscreen_headline | 0.400 | 0.000 | 0.400 | −0.840 |
-| default_task / small_element_spam | 0.000 | 0.000 | 0.400 | −1.000 |
+| summer_sale / offscreen_headline | 0.400 | 0.000 | 0.400 | −0.840 |
+| summer_sale / small_element_spam | 0.000 | 0.000 | 0.400 | −1.000 |
 | webinar / hidden_headline | 0.556 | 0.000 | 0.400 | −0.778 |
 | webinar / missing_cta | 0.667 | 1.000 | 0.400 | −0.333 |
 | newsletter / forbidden_cta | 0.800 | 1.000 | 0.400 | −0.280 |

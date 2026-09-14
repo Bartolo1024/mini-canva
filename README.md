@@ -33,7 +33,7 @@ uv run --locked python demo.py --png artifacts/demo/banner.png
 ```
 
 Open the PNG to inspect the canvas. Add `--json` for machine-readable output.
-The demo uses `data/tasks/default_task.yaml`; use the scripts below for other tasks.
+The demo uses `data/tasks/summer_sale.yaml`; use the scripts below for other tasks.
 
 ## 3. Run the examples
 
