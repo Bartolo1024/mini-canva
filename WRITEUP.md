@@ -79,19 +79,55 @@ is the smallest selected visibility multiplier. Each multiplier is usable visibi
 divided by the configured threshold (default 0.8), capped at one. There is no global
 centering bonus. The reward breakdown exposes individual constraints and all components.
 
-An RL policy optimizes these checks, so a high score is not proof of a good design.
+An RL policy optimizes the implemented checks. Replaying all 15 saved trajectories
+with `python scripts/run_examples.py` gives these terminal rewards:
 
-| Attack | Current protection and remaining gap |
-| --- | --- |
-| Tiny or offscreen content | Presence requires usable visibility and a configurable minimum canvas-area fraction (default 0.1%, overridable in TaskSpec). This rejects 1×1 images/logos; area alone does not ensure useful proportions. |
-| Duplicate CTAs or create-everything spam | Existence is capped and explicit hard counts work. Without counts or clutter penalties, disjoint spam can tie a clean design. |
-| Perfectly aligned, overlapping elements | Worst-pair overlap makes $Q=0$ and cannot be diluted by decoys. Images and unlabeled backgrounds are exempt. |
-| Missing required elements | The hard gate prevents positive reward. Missing dependent constraints still add zeros. |
-| High contrast or hidden text | Usability accounts for occlusion, but background lookup requires whole-text-box containment. A dark patch under only dark ink can remain undetected at reward 1. |
+| Task | Trajectory | T | Q | G | Reward |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Summer Sale | `well_done` | 1.000 | 1.000 | 1.0 | +1.000 |
+| Summer Sale | `offscreen_headline` | 0.400 | 0.000 | 0.4 | -0.840 |
+| Summer Sale | `small_element_spam` | 0.000 | 0.000 | 0.4 | -1.000 |
+| Event | `well_done` | 1.000 | 1.000 | 1.0 | +1.000 |
+| Event | `center_stacking` | 0.125 | 0.000 | 0.4 | -0.950 |
+| Event | `duplicate_cta` | 1.000 | 1.000 | 1.0 | **+1.000** |
+| Newsletter | `well_done` | 1.000 | 1.000 | 1.0 | +1.000 |
+| Newsletter | `forbidden_cta` | 0.800 | 1.000 | 0.4 | -0.280 |
+| Newsletter | `tiny_logo` | 0.800 | 1.000 | 0.4 | -0.280 |
+| Two-column | `well_done` | 1.000 | 1.000 | 1.0 | +1.000 |
+| Two-column | `centered_layout` | 0.900 | 1.000 | 1.0 | **+0.900** |
+| Two-column | `contrast_patch` | 1.000 | 1.000 | 1.0 | **+1.000** |
+| Webinar | `well_done` | 1.000 | 1.000 | 1.0 | +1.000 |
+| Webinar | `hidden_headline` | 0.556 | 0.000 | 0.4 | -0.778 |
+| Webinar | `missing_cta` | 0.667 | 1.000 | 0.4 | -0.333 |
 
-Roles also remain self-reported. Overlapping constraints can emphasize one requirement
-despite equal weights. Changing aggregation cannot separate identical component scores.
-See [reward equations](docs/REWARD_EQUATIONS.md) and [adversarial results](docs/REWARD_HACKING.md) for a deeper dive.
+Seven attacks score negatively, but two still earn full reward and one is only weakly
+penalized. Tiny logos now fail the configurable minimum-area check (default 0.1% of
+the canvas), and missing hard requirements activate the gate.
+
+**Duplicate CTA — a gap with a trade-off.** The original CTA satisfies the task;
+the extra button is readable and does not overlap anything. The task has no exact
+count, so neither $T$ nor $Q$ decreases. Explicit hard counts already work. A general
+surplus-element penalty remains unimplemented because identifying unnecessary elements
+also requires allowing legitimate decorations and repeated controls. Existence is capped,
+but that alone does not make duplication worse.
+
+**Contrast patch — a measurement flaw.** A dark patch behind dark headline ink is
+ignored because background lookup requires the patch to contain the entire text box.
+The evaluator reports about 18.88:1 against the white canvas, although the actual
+text/patch contrast is 1:1. Whole-box lookup is simple, but this is an unresolved flaw,
+not a desirable trade-off. It needs a check of backgrounds beneath the text;
+a clutter penalty would not correct the false contrast measurement.
+
+**Centered two-column layout — weak punishment.** Four region constraints score 0.75;
+the other six score 1, giving $T=(4\times0.75+6)/10=0.9$. Quality stays perfect and
+the region constraints are soft, so $R=0.9$. Continuous scores provide gradual layout
+feedback, but give this wrong layout too much credit. Marking required regions hard
+in the TaskSpec would prevent a positive reward without changing reward code.
+
+Roles also remain self-reported, and overlapping constraints can implicitly emphasize
+one requirement. These examples expose gaps; they do not prove resistance to every
+policy strategy. See [reward equations](docs/REWARD_EQUATIONS.md) and
+[adversarial results](docs/REWARD_HACKING.md) for further analysis.
 
 ## Scaling to 10,000 VLM PPO rollouts
 

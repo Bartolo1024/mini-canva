@@ -1,6 +1,6 @@
 # MarketCanvas-Env
 
-Read `task.pdf` for assignment requirements and `docs/PROJECT_PLAN.md` for selected libraries and design decisions.
+Read `docs/PROJECT_PLAN.md` for selected libraries and design decisions.
 
 ## Current scope
 
